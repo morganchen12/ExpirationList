@@ -1,0 +1,10 @@
+PODS:
+  - TesseractOCRiOS (2.22)
+
+DEPENDENCIES:
+  - TesseractOCRiOS
+
+SPEC CHECKSUMS:
+  TesseractOCRiOS: 96e638295c3af9d95f27e9999eabfad405274466
+
+COCOAPODS: 0.34.1
