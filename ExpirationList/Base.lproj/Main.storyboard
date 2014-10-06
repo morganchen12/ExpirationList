@@ -72,7 +72,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hNN-qj-qk9">
-                                        <rect key="frame" x="0.0" y="74" width="600" height="238"/>
+                                        <rect key="frame" x="0.0" y="74" width="600" height="400"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="448-23-qaG">
                                                 <rect key="frame" x="105" y="0.0" width="487" height="30"/>
@@ -95,7 +95,11 @@
                                                 </date>
                                             </datePicker>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XBY-Jj-8JI">
-                                                <rect key="frame" x="283" y="208" width="34" height="30"/>
+                                                <rect key="frame" x="255" y="208" width="90" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="90" id="DKw-D9-cXt"/>
+                                                    <constraint firstAttribute="height" constant="30" id="g2Y-lq-b7E"/>
+                                                </constraints>
                                                 <state key="normal" title="Save">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -106,16 +110,16 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="238" id="7Ig-cJ-h3Q"/>
                                             <constraint firstItem="448-23-qaG" firstAttribute="top" secondItem="hNN-qj-qk9" secondAttribute="top" id="8qX-1c-gQI"/>
                                             <constraint firstItem="jvs-5e-KFC" firstAttribute="top" secondItem="hNN-qj-qk9" secondAttribute="top" constant="4" id="JOe-Vv-igc"/>
+                                            <constraint firstAttribute="centerX" secondItem="XBY-Jj-8JI" secondAttribute="centerX" id="NL7-YA-hwg"/>
                                             <constraint firstAttribute="trailing" secondItem="448-23-qaG" secondAttribute="trailing" constant="8" id="Nik-g9-hSS"/>
                                             <constraint firstItem="jvs-5e-KFC" firstAttribute="leading" secondItem="hNN-qj-qk9" secondAttribute="leading" constant="8" id="O5S-lw-B4J"/>
                                             <constraint firstAttribute="centerX" secondItem="HKQ-dT-rbY" secondAttribute="centerX" id="hkY-PE-1JR"/>
                                             <constraint firstItem="448-23-qaG" firstAttribute="leading" secondItem="jvs-5e-KFC" secondAttribute="trailing" constant="8" id="jUp-yz-ITM"/>
+                                            <constraint firstItem="XBY-Jj-8JI" firstAttribute="top" secondItem="HKQ-dT-rbY" secondAttribute="bottom" constant="8" id="loV-Pa-OEZ"/>
                                             <constraint firstItem="HKQ-dT-rbY" firstAttribute="top" secondItem="448-23-qaG" secondAttribute="bottom" constant="8" id="oOq-ar-Dch"/>
-                                            <constraint firstAttribute="centerX" secondItem="XBY-Jj-8JI" secondAttribute="centerX" id="rzX-od-UjE"/>
-                                            <constraint firstItem="XBY-Jj-8JI" firstAttribute="top" secondItem="HKQ-dT-rbY" secondAttribute="bottom" constant="8" id="wk5-9L-j2h"/>
+                                            <constraint firstAttribute="height" constant="400" id="yg9-I0-Q6c"/>
                                         </constraints>
                                     </view>
                                 </subviews>
