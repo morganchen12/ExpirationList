@@ -23,6 +23,9 @@
 		8D569AC919DB466200993C3C /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 8D569AC819DB466200993C3C /* tessdata */; };
 		8D569ACB19DB468700993C3C /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D569ACA19DB468700993C3C /* CoreImage.framework */; };
 		8D603F5019DB417D003F7154 /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D603F4F19DB417D003F7154 /* libstdc++.6.0.9.dylib */; };
+		8DE79C4D19DDCDD60065AD7E /* receipt2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8DE79C4C19DDCDD60065AD7E /* receipt2.jpg */; };
+		8DE79C4F19DDCE800065AD7E /* receipt3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8DE79C4E19DDCE800065AD7E /* receipt3.jpg */; };
+		8DE79C5219DDCFB00065AD7E /* ImageTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE79C5119DDCFB00065AD7E /* ImageTestViewController.m */; };
 		92FA98D792498562EDB636B6 /* libPods-ExpirationList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF37C9D7539D427A13A52CF1 /* libPods-ExpirationList.a */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +68,10 @@
 		8D569AC819DB466200993C3C /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		8D569ACA19DB468700993C3C /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		8D603F4F19DB417D003F7154 /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
+		8DE79C4C19DDCDD60065AD7E /* receipt2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = receipt2.jpg; sourceTree = "<group>"; };
+		8DE79C4E19DDCE800065AD7E /* receipt3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = receipt3.jpg; sourceTree = "<group>"; };
+		8DE79C5019DDCFB00065AD7E /* ImageTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageTestViewController.h; sourceTree = "<group>"; };
+		8DE79C5119DDCFB00065AD7E /* ImageTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageTestViewController.m; sourceTree = "<group>"; };
 		AF37C9D7539D427A13A52CF1 /* libPods-ExpirationList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ExpirationList.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -119,6 +126,8 @@
 				8D16B76219D875C600E58B06 /* AddItemViewController.m */,
 				8D2CEFAE19D5F882006E530E /* ExpirationTableViewController.h */,
 				8D2CEFAF19D5F882006E530E /* ExpirationTableViewController.m */,
+				8DE79C5019DDCFB00065AD7E /* ImageTestViewController.h */,
+				8DE79C5119DDCFB00065AD7E /* ImageTestViewController.m */,
 				8D2CEF9219D5DB47006E530E /* Main.storyboard */,
 				8D2CEF9519D5DB47006E530E /* Images.xcassets */,
 				8D2CEF9719D5DB47006E530E /* LaunchScreen.xib */,
@@ -132,6 +141,8 @@
 			isa = PBXGroup;
 			children = (
 				8D28317019DC939400D5E2C1 /* Grocery_receipts_001.jpg */,
+				8DE79C4C19DDCDD60065AD7E /* receipt2.jpg */,
+				8DE79C4E19DDCE800065AD7E /* receipt3.jpg */,
 				8D2CEF8619D5DB47006E530E /* Info.plist */,
 				8D2CEF8719D5DB47006E530E /* main.m */,
 				8D2CEFB419D5FCDE006E530E /* Expirable.h */,
@@ -264,7 +275,9 @@
 			files = (
 				8D2CEF9419D5DB47006E530E /* Main.storyboard in Resources */,
 				8D569AC919DB466200993C3C /* tessdata in Resources */,
+				8DE79C4F19DDCE800065AD7E /* receipt3.jpg in Resources */,
 				8D2CEF9919D5DB47006E530E /* LaunchScreen.xib in Resources */,
+				8DE79C4D19DDCDD60065AD7E /* receipt2.jpg in Resources */,
 				8D2CEF9619D5DB47006E530E /* Images.xcassets in Resources */,
 				8D28317119DC939400D5E2C1 /* Grocery_receipts_001.jpg in Resources */,
 			);
@@ -325,6 +338,7 @@
 				8D2CEF8B19D5DB47006E530E /* AppDelegate.m in Sources */,
 				8D2CEFB619D5FCDE006E530E /* Expirable.m in Sources */,
 				8D2CEF8819D5DB47006E530E /* main.m in Sources */,
+				8DE79C5219DDCFB00065AD7E /* ImageTestViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +461,10 @@
 			baseConfigurationReference = 3F0044107677CE9F481C1E4F /* Pods-ExpirationList.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/morganchen/dev/iOS/ios,
+				);
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = ExpirationList/Info.plist;
@@ -461,6 +479,10 @@
 			baseConfigurationReference = 6575B264468069D7069D6E90 /* Pods-ExpirationList.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/morganchen/dev/iOS/ios,
+				);
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = ExpirationList/Info.plist;

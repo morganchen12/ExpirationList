@@ -68,9 +68,6 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="B2A-3w-nUr">
-                                <rect key="frame" x="290" y="290" width="20" height="20"/>
-                            </activityIndicatorView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vTS-vZ-hmD">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
@@ -88,15 +85,6 @@
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XBY-Jj-8JI">
-                                                <rect key="frame" x="283" y="208" width="34" height="30"/>
-                                                <state key="normal" title="Save">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="saveItem:" destination="iq4-0A-58s" eventType="touchUpInside" id="QyL-yl-Qah"/>
-                                                </connections>
-                                            </button>
                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="HKQ-dT-rbY">
                                                 <rect key="frame" x="140" y="38" width="320" height="162"/>
                                                 <constraints>
@@ -106,6 +94,15 @@
                                                     <!--2014-09-28 17:05:00 +0000-->
                                                 </date>
                                             </datePicker>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XBY-Jj-8JI">
+                                                <rect key="frame" x="283" y="208" width="34" height="30"/>
+                                                <state key="normal" title="Save">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="saveItem:" destination="iq4-0A-58s" eventType="touchUpInside" id="QyL-yl-Qah"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -134,32 +131,66 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="vTS-vZ-hmD" secondAttribute="trailing" id="4hU-ob-weI"/>
                             <constraint firstItem="2oa-Od-1bH" firstAttribute="top" secondItem="vTS-vZ-hmD" secondAttribute="bottom" id="TKi-29-gd7"/>
-                            <constraint firstAttribute="centerX" secondItem="B2A-3w-nUr" secondAttribute="centerX" id="TMs-lf-iFI"/>
                             <constraint firstItem="vTS-vZ-hmD" firstAttribute="leading" secondItem="8DL-ly-da0" secondAttribute="leading" id="VhQ-I7-5Fx"/>
                             <constraint firstItem="vTS-vZ-hmD" firstAttribute="top" secondItem="8DL-ly-da0" secondAttribute="top" id="XCp-vD-cDA"/>
-                            <constraint firstAttribute="centerY" secondItem="B2A-3w-nUr" secondAttribute="centerY" id="pHX-1r-YBr"/>
                             <constraint firstAttribute="width" secondItem="hNN-qj-qk9" secondAttribute="width" id="v36-hi-WIC"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="dHO-IJ-OIc">
                         <barButtonItem key="rightBarButtonItem" systemItem="camera" id="a5n-ow-gvy">
                             <connections>
-                                <action selector="openCamera:" destination="iq4-0A-58s" id="ArX-Mk-Q86"/>
+                                <segue destination="2n1-Hd-OkO" kind="show" identifier="TestImage" id="ZsP-at-3PW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="activityIndicator" destination="B2A-3w-nUr" id="deB-h9-R34"/>
                         <outlet property="datePicker" destination="HKQ-dT-rbY" id="uFn-R8-8Bc"/>
                         <outlet property="nameTextField" destination="448-23-qaG" id="t1c-6B-Iax"/>
-                        <outlet property="saveButton" destination="XBY-Jj-8JI" id="C5s-IR-orh"/>
                         <outlet property="scrollView" destination="vTS-vZ-hmD" id="1Rf-Zn-TQd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gKA-oD-h68" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1788" y="371"/>
+        </scene>
+        <!--Image Test View Controller-->
+        <scene sceneID="cPM-d9-2sw">
+            <objects>
+                <viewController id="2n1-Hd-OkO" customClass="ImageTestViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="12C-Fb-kfl"/>
+                        <viewControllerLayoutGuide type="bottom" id="axO-2F-fZG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bXi-ob-0ls">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SFS-Zn-yRs">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eRl-ip-ogW">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    </imageView>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="SFS-Zn-yRs" firstAttribute="leading" secondItem="bXi-ob-0ls" secondAttribute="leading" id="cBI-Oy-jTR"/>
+                            <constraint firstItem="SFS-Zn-yRs" firstAttribute="top" secondItem="bXi-ob-0ls" secondAttribute="top" id="ewP-07-kpy"/>
+                            <constraint firstAttribute="bottom" secondItem="SFS-Zn-yRs" secondAttribute="bottom" id="yFu-sC-HJ8"/>
+                            <constraint firstAttribute="trailing" secondItem="SFS-Zn-yRs" secondAttribute="trailing" id="yid-H9-Ale"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="eRl-ip-ogW" id="X5q-lp-qeu"/>
+                        <outlet property="scrollView" destination="SFS-Zn-yRs" id="dvH-l5-NTo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dMl-om-0CQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2465" y="371"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2Y2-ii-owE">

@@ -32,6 +32,89 @@ typedef enum {
     RED = 3
 } PIXELS;
 
+-(UIImage *)binaryImageFromAdaptiveThresholdingWithAreaRadius:(int)radius andConstant:(int)constant {
+    UIImage *imageAsGrayScale = [self grayScale];
+    
+    CGSize size = self.size;
+    int width = size.width;
+    int height = size.height;
+    
+    // the pixels will be painted to this array
+    uint32_t *pixels = (uint32_t *) malloc(width * height * sizeof(uint32_t));
+    
+    //second array solely for reading pixels so parse results aren't affected by previously altered pixels
+    uint32_t *pixelsToReadFrom = (uint32_t *) malloc(width * height * sizeof(uint32_t));
+    
+    // clear the pixels so any transparency is preserved
+    memset(pixels, 0, width * height * sizeof(uint32_t));
+    memset(pixelsToReadFrom, 0, width * height * sizeof(uint32_t));
+    
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    
+    // create a context with RGBA pixels
+    CGContextRef context = CGBitmapContextCreate(pixels, width, height, 8, width * sizeof(uint32_t), colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedLast);
+    CGContextRef contextToReadFrom = CGBitmapContextCreate(pixelsToReadFrom, width, height, 8, width * sizeof(uint32_t), colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedLast);
+    
+    // paint the bitmap to our context which will fill in the pixels array
+    CGContextDrawImage(context, CGRectMake(0, 0, width, height), [imageAsGrayScale CGImage]);
+    CGContextDrawImage(contextToReadFrom, CGRectMake(0, 0, width, height), [imageAsGrayScale CGImage]);
+
+    for(int y = 0; y < height; y++) {
+        for(int x = 0; x < width; x++) {
+            uint8_t *rgbaPixel = (uint8_t *) &pixels[y*width + x];
+            int xMin, yMin, xMax, yMax;
+            
+            //set up bounds of local region to use for thresholding
+            (x - radius < 0) ? (xMin = 0) : (xMin = x - radius);
+            (y - radius < 0) ? (yMin = 0) : (yMin = y - radius);
+            (x + radius > width-1) ? (xMax = width-1) : (xMax = x + radius);
+            (y + radius > height-1) ? (yMax = height-1) : (yMax = y + radius);
+            
+            //loop through region near pixel to find average pixel value
+            int average = 0;
+            for(int j = yMin; j < yMax; j++){
+                for(int i = xMin; i < xMax; i++){
+                    uint8_t *localRGBAPixel = (uint8_t *) &pixelsToReadFrom[j*width + i];
+                    average += localRGBAPixel[RED]; //all RGB values are the same after applying grayscale function; red chosen arbitrarily
+                }
+            }
+            //average value of local pixels minus constant
+            average = MAX((int)((float) average / pow(radius*2 + 1, 2)) - constant, 0);
+            if(rgbaPixel[RED] > average){
+                //pixels brighter than average are set to white (1)
+                uint32_t white = 0xFF;
+                rgbaPixel[RED] = white;
+                rgbaPixel[BLUE] = white;
+                rgbaPixel[GREEN] = white;
+            } else {
+                //else, set to black (0)
+                uint32_t black = 0x0;
+                rgbaPixel[RED] = black;
+                rgbaPixel[BLUE] = black;
+                rgbaPixel[GREEN] = black;
+            }
+        }
+    }
+
+    // create a new CGImageRef from our context with the modified pixels
+    CGImageRef image = CGBitmapContextCreateImage(context);
+    
+    // we're done with the context, color space, and pixels
+    CGContextRelease(context);
+    CGContextRelease(contextToReadFrom);
+    CGColorSpaceRelease(colorSpace);
+    free(pixels);
+    free(pixelsToReadFrom);
+    
+    // make a new UIImage to return
+    UIImage *resultUIImage = [UIImage imageWithCGImage:image scale:0 orientation:self.imageOrientation];
+    
+    // we're done with image now too
+    CGImageRelease(image);
+    
+    return resultUIImage;
+}
+
 - (UIImage *)grayScale
 {
     CGSize size = [self size];
@@ -47,8 +130,7 @@ typedef enum {
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     
     // create a context with RGBA pixels
-    CGContextRef context = CGBitmapContextCreate(pixels, width, height, 8, width * sizeof(uint32_t), colorSpace,
-                                                 kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedLast);
+    CGContextRef context = CGBitmapContextCreate(pixels, width, height, 8, width * sizeof(uint32_t), colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedLast);
     
     // paint the bitmap to our context which will fill in the pixels array
     CGContextDrawImage(context, CGRectMake(0, 0, width, height), [self CGImage]);

@@ -12,5 +12,6 @@
 
 -(UIImage *)blackAndWhite;
 -(UIImage *)grayScale;
+-(UIImage *)binaryImageFromAdaptiveThresholdingWithAreaRadius:(int)radius andConstant:(int)constant;
 
 @end

@@ -9,13 +9,13 @@
 #import "AddItemViewController.h"
 #import "CoreDataHelper.h"
 #import "UIImage+Filters.h"
+#import "ImageTestViewController.h"
 
 @interface AddItemViewController ()
-@property (weak, nonatomic) IBOutlet UIButton *saveButton;
+//@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -48,10 +48,10 @@
 
 -(void)recognizeImageWithTesseract:(UIImage *)image {
     //should perform in background
-    UIImage *imageBW = [image blackAndWhite];
+    UIImage *imageToTest = [image binaryImageFromAdaptiveThresholdingWithAreaRadius:15 andConstant:12];
     Tesseract *tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];
     tesseract.delegate = self;
-    [tesseract setImage:imageBW];
+    [tesseract setImage:imageToTest];
     [tesseract recognize];
     NSLog(@"%@", tesseract.recognizedText);
 }
@@ -64,21 +64,27 @@
 #pragma mark - UIImagePickerControllerDelegate
 
 - (IBAction)openCamera:(id)sender {
-    //later on will open camera to take pic of receipt
-    //tesseract-ocr test code for now
+    
+}
+
+#pragma mark - Tests
+
+-(void)testTesseract {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self recognizeImageWithTesseract:[UIImage imageNamed:@"Grocery_receipts_001.jpg"]];
+        [self recognizeImageWithTesseract:[UIImage imageNamed:@"receipt3.jpg"]];
     });
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"TestImage"]){
+        ImageTestViewController *destination = (ImageTestViewController *)[segue destinationViewController];
+        destination.testImage = [[UIImage imageNamed:@"receipt3.jpg"] binaryImageFromAdaptiveThresholdingWithAreaRadius:12 andConstant:6];
+    }
 }
-*/
+
 
 @end
