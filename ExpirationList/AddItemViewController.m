@@ -12,10 +12,13 @@
 #import "ImageTestViewController.h"
 
 @interface AddItemViewController ()
-//@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UINavigationItem *navigationBar;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cameraBarButton;
 
 @end
 
@@ -27,7 +30,7 @@
     [super viewDidLoad];
     self.datePicker.datePickerMode = UIDatePickerModeDate;
     self.nameTextField.delegate = self;
-//    self.scrollView.frame = [[UIScreen mainScreen] applicationFrame];
+    [self.activityIndicator stopAnimating];
     
 }
 
@@ -39,6 +42,8 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark - UITextFieldDelegate
+
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
@@ -48,29 +53,59 @@
 
 -(void)recognizeImageWithTesseract:(UIImage *)image {
     //should perform in background
-    UIImage *imageToTest = [image binaryImageFromAdaptiveThresholdingWithAreaRadius:15 andConstant:12];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.activityIndicator startAnimating];
+        self.saveButton.userInteractionEnabled = NO;
+        [self.navigationBar setHidesBackButton:YES animated:YES];
+        self.cameraBarButton.enabled = NO;
+    });
+    UIImage *imageToTest = [image binaryImageFromAdaptiveThresholdingWithAreaRadius:12 andConstant:4];
     Tesseract *tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];
+    [tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz." forKey:@"tessedit_char_whitelist"];
     tesseract.delegate = self;
     [tesseract setImage:imageToTest];
     [tesseract recognize];
     NSLog(@"%@", tesseract.recognizedText);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.activityIndicator stopAnimating];
+        self.saveButton.userInteractionEnabled = YES;
+        [self.navigationBar setHidesBackButton:NO animated:YES];
+        self.cameraBarButton.enabled = YES;
+    });
 }
 
 - (BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract*)tesseract {
-    NSLog(@"progress: %d", tesseract.progress);
+//    NSLog(@"progress: %d", tesseract.progress);
     return NO;  // return YES, if you need to interrupt tesseract before it finishes
 }
 
 #pragma mark - UIImagePickerControllerDelegate
 
 - (IBAction)openCamera:(id)sender {
-    
+    [self testTesseract];
+//    UIImagePickerController *imgPicker = [UIImagePickerController new];
+//    imgPicker.delegate = self;
+//    
+//    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+//    {
+//        imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+//        [self presentViewController:imgPicker animated:YES completion:nil];
+//    }
 }
+
+//-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+//    UIImage *image = info[UIImagePickerControllerOriginalImage];
+//    [picker dismissViewControllerAnimated:YES completion:nil];
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+//        [self recognizeImageWithTesseract:image];
+//    });
+//}
 
 #pragma mark - Tests
 
 -(void)testTesseract {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        [self recognizeImageWithTesseract:[UIImage imageNamed:@"Grocery_receipts_001.jpg"]];
         [self recognizeImageWithTesseract:[UIImage imageNamed:@"receipt3.jpg"]];
     });
 }
@@ -80,10 +115,10 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if([segue.identifier isEqualToString:@"TestImage"]){
-        ImageTestViewController *destination = (ImageTestViewController *)[segue destinationViewController];
-        destination.testImage = [[UIImage imageNamed:@"receipt3.jpg"] binaryImageFromAdaptiveThresholdingWithAreaRadius:12 andConstant:6];
-    }
+//    if([segue.identifier isEqualToString:@"TestImage"]){
+//        ImageTestViewController *destination = (ImageTestViewController *)[segue destinationViewController];
+//        destination.testImage = [[UIImage imageNamed:@"receipt3.jpg"] binaryImageFromAdaptiveThresholdingWithAreaRadius:12 andConstant:6];
+//    }
 }
 
 

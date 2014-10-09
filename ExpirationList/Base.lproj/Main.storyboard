@@ -65,14 +65,14 @@
                         <viewControllerLayoutGuide type="bottom" id="2oa-Od-1bH"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8DL-ly-da0">
-                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vTS-vZ-hmD">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hNN-qj-qk9">
-                                        <rect key="frame" x="0.0" y="74" width="600" height="400"/>
+                                        <rect key="frame" x="0.0" y="8" width="600" height="400"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="448-23-qaG">
                                                 <rect key="frame" x="105" y="0.0" width="487" height="30"/>
@@ -107,14 +107,19 @@
                                                     <action selector="saveItem:" destination="iq4-0A-58s" eventType="touchUpInside" id="QyL-yl-Qah"/>
                                                 </connections>
                                             </button>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="np0-Zr-d9t">
+                                                <rect key="frame" x="290" y="190" width="20" height="20"/>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="448-23-qaG" firstAttribute="top" secondItem="hNN-qj-qk9" secondAttribute="top" id="8qX-1c-gQI"/>
+                                            <constraint firstAttribute="centerX" secondItem="np0-Zr-d9t" secondAttribute="centerX" id="A1l-b0-oj1"/>
                                             <constraint firstItem="jvs-5e-KFC" firstAttribute="top" secondItem="hNN-qj-qk9" secondAttribute="top" constant="4" id="JOe-Vv-igc"/>
                                             <constraint firstAttribute="centerX" secondItem="XBY-Jj-8JI" secondAttribute="centerX" id="NL7-YA-hwg"/>
                                             <constraint firstAttribute="trailing" secondItem="448-23-qaG" secondAttribute="trailing" constant="8" id="Nik-g9-hSS"/>
                                             <constraint firstItem="jvs-5e-KFC" firstAttribute="leading" secondItem="hNN-qj-qk9" secondAttribute="leading" constant="8" id="O5S-lw-B4J"/>
+                                            <constraint firstAttribute="centerY" secondItem="np0-Zr-d9t" secondAttribute="centerY" id="Q0g-3Q-X7l"/>
                                             <constraint firstAttribute="centerX" secondItem="HKQ-dT-rbY" secondAttribute="centerX" id="hkY-PE-1JR"/>
                                             <constraint firstItem="448-23-qaG" firstAttribute="leading" secondItem="jvs-5e-KFC" secondAttribute="trailing" constant="8" id="jUp-yz-ITM"/>
                                             <constraint firstItem="XBY-Jj-8JI" firstAttribute="top" secondItem="HKQ-dT-rbY" secondAttribute="bottom" constant="8" id="loV-Pa-OEZ"/>
@@ -127,7 +132,7 @@
                                     <constraint firstAttribute="bottom" secondItem="hNN-qj-qk9" secondAttribute="bottom" constant="70" id="CDW-mW-RRP"/>
                                     <constraint firstItem="hNN-qj-qk9" firstAttribute="leading" secondItem="vTS-vZ-hmD" secondAttribute="leading" id="ExW-B2-ogw"/>
                                     <constraint firstAttribute="trailing" secondItem="hNN-qj-qk9" secondAttribute="trailing" id="FBz-R1-BSt"/>
-                                    <constraint firstItem="hNN-qj-qk9" firstAttribute="top" secondItem="vTS-vZ-hmD" secondAttribute="top" constant="74" id="aCJ-lw-qMK"/>
+                                    <constraint firstItem="hNN-qj-qk9" firstAttribute="top" secondItem="vTS-vZ-hmD" secondAttribute="top" constant="8" id="aCJ-lw-qMK"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -143,58 +148,24 @@
                     <navigationItem key="navigationItem" id="dHO-IJ-OIc">
                         <barButtonItem key="rightBarButtonItem" systemItem="camera" id="a5n-ow-gvy">
                             <connections>
-                                <segue destination="2n1-Hd-OkO" kind="show" identifier="TestImage" id="ZsP-at-3PW"/>
+                                <action selector="openCamera:" destination="iq4-0A-58s" id="vMI-Vi-U06"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="np0-Zr-d9t" id="VtN-QT-1gQ"/>
+                        <outlet property="cameraBarButton" destination="a5n-ow-gvy" id="B7g-eh-7Pc"/>
                         <outlet property="datePicker" destination="HKQ-dT-rbY" id="uFn-R8-8Bc"/>
                         <outlet property="nameTextField" destination="448-23-qaG" id="t1c-6B-Iax"/>
+                        <outlet property="navigationBar" destination="dHO-IJ-OIc" id="Pl2-aK-cOD"/>
+                        <outlet property="saveButton" destination="XBY-Jj-8JI" id="NbY-mc-Yj2"/>
                         <outlet property="scrollView" destination="vTS-vZ-hmD" id="1Rf-Zn-TQd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gKA-oD-h68" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1788" y="371"/>
-        </scene>
-        <!--Image Test View Controller-->
-        <scene sceneID="cPM-d9-2sw">
-            <objects>
-                <viewController id="2n1-Hd-OkO" customClass="ImageTestViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="12C-Fb-kfl"/>
-                        <viewControllerLayoutGuide type="bottom" id="axO-2F-fZG"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="bXi-ob-0ls">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SFS-Zn-yRs">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eRl-ip-ogW">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                    </imageView>
-                                </subviews>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="SFS-Zn-yRs" firstAttribute="leading" secondItem="bXi-ob-0ls" secondAttribute="leading" id="cBI-Oy-jTR"/>
-                            <constraint firstItem="SFS-Zn-yRs" firstAttribute="top" secondItem="bXi-ob-0ls" secondAttribute="top" id="ewP-07-kpy"/>
-                            <constraint firstAttribute="bottom" secondItem="SFS-Zn-yRs" secondAttribute="bottom" id="yFu-sC-HJ8"/>
-                            <constraint firstAttribute="trailing" secondItem="SFS-Zn-yRs" secondAttribute="trailing" id="yid-H9-Ale"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="imageView" destination="eRl-ip-ogW" id="X5q-lp-qeu"/>
-                        <outlet property="scrollView" destination="SFS-Zn-yRs" id="dvH-l5-NTo"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dMl-om-0CQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2465" y="371"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2Y2-ii-owE">

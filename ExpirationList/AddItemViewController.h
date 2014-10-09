@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <TesseractOCR/TesseractOCR.h>
 
-@interface AddItemViewController : UIViewController <TesseractDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate>
+@interface AddItemViewController : UIViewController <TesseractDelegate, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @end

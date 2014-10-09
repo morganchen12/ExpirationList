@@ -42,20 +42,21 @@ typedef enum {
     // the pixels will be painted to this array
     uint32_t *pixels = (uint32_t *) malloc(width * height * sizeof(uint32_t));
     
-    //second array solely for reading pixels so parse results aren't affected by previously altered pixels
+    //second array solely for reading pixels so results aren't affected by previously altered pixels
     uint32_t *pixelsToReadFrom = (uint32_t *) malloc(width * height * sizeof(uint32_t));
     
     // clear the pixels so any transparency is preserved
     memset(pixels, 0, width * height * sizeof(uint32_t));
     memset(pixelsToReadFrom, 0, width * height * sizeof(uint32_t));
     
+    //create color space
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     
-    // create a context with RGBA pixels
+    // create contexts with RGBA pixels
     CGContextRef context = CGBitmapContextCreate(pixels, width, height, 8, width * sizeof(uint32_t), colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedLast);
     CGContextRef contextToReadFrom = CGBitmapContextCreate(pixelsToReadFrom, width, height, 8, width * sizeof(uint32_t), colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedLast);
     
-    // paint the bitmap to our context which will fill in the pixels array
+    // paint the bitmap to our contexts which will fill in the pixels array
     CGContextDrawImage(context, CGRectMake(0, 0, width, height), [imageAsGrayScale CGImage]);
     CGContextDrawImage(contextToReadFrom, CGRectMake(0, 0, width, height), [imageAsGrayScale CGImage]);
 
@@ -65,10 +66,10 @@ typedef enum {
             int xMin, yMin, xMax, yMax;
             
             //set up bounds of local region to use for thresholding
-            (x - radius < 0) ? (xMin = 0) : (xMin = x - radius);
-            (y - radius < 0) ? (yMin = 0) : (yMin = y - radius);
-            (x + radius > width-1) ? (xMax = width-1) : (xMax = x + radius);
-            (y + radius > height-1) ? (yMax = height-1) : (yMax = y + radius);
+            xMin = MAX(0, x - radius);
+            yMin = MAX(0, y - radius);
+            xMax = MIN(width-1, x + radius);
+            yMax = MIN(height-1, y + radius);
             
             //loop through region near pixel to find average pixel value
             int average = 0;
