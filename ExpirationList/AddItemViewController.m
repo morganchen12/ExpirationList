@@ -10,6 +10,7 @@
 #import "CoreDataHelper.h"
 #import "UIImage+Filters.h"
 #import "ImageTestViewController.h"
+#import "EXLModel.h"
 
 @interface AddItemViewController ()
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
@@ -66,6 +67,7 @@
     [tesseract setImage:imageToTest];
     [tesseract recognize];
     NSLog(@"%@", tesseract.recognizedText);
+    NSArray *words = [EXLModel itemsFromOCROutput:tesseract.recognizedText];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.activityIndicator stopAnimating];
         self.saveButton.userInteractionEnabled = YES;

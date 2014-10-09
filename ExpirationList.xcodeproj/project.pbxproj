@@ -19,6 +19,7 @@
 		8D2CEFB019D5F882006E530E /* ExpirationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CEFAF19D5F882006E530E /* ExpirationTableViewController.m */; };
 		8D2CEFB619D5FCDE006E530E /* Expirable.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CEFB519D5FCDE006E530E /* Expirable.m */; };
 		8D2CEFB919D60E19006E530E /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CEFB819D60E19006E530E /* CoreDataHelper.m */; };
+		8D401B0019E717DB002B5F79 /* EXLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D401AFF19E717DB002B5F79 /* EXLModel.m */; };
 		8D4E963E19DCAF6F0047B3E3 /* UIImage+Filters.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E963D19DCAF6F0047B3E3 /* UIImage+Filters.m */; };
 		8D569AC919DB466200993C3C /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 8D569AC819DB466200993C3C /* tessdata */; };
 		8D569ACB19DB468700993C3C /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D569ACA19DB468700993C3C /* CoreImage.framework */; };
@@ -63,6 +64,8 @@
 		8D2CEFB519D5FCDE006E530E /* Expirable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Expirable.m; sourceTree = "<group>"; };
 		8D2CEFB719D60E19006E530E /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		8D2CEFB819D60E19006E530E /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
+		8D401AFE19E717DB002B5F79 /* EXLModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXLModel.h; sourceTree = "<group>"; };
+		8D401AFF19E717DB002B5F79 /* EXLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXLModel.m; sourceTree = "<group>"; };
 		8D4E963C19DCAF6F0047B3E3 /* UIImage+Filters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Filters.h"; sourceTree = "<group>"; };
 		8D4E963D19DCAF6F0047B3E3 /* UIImage+Filters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Filters.m"; sourceTree = "<group>"; };
 		8D569AC819DB466200993C3C /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
@@ -124,6 +127,8 @@
 				8D2CEF8A19D5DB47006E530E /* AppDelegate.m */,
 				8D16B76119D875C600E58B06 /* AddItemViewController.h */,
 				8D16B76219D875C600E58B06 /* AddItemViewController.m */,
+				8D401AFE19E717DB002B5F79 /* EXLModel.h */,
+				8D401AFF19E717DB002B5F79 /* EXLModel.m */,
 				8D2CEFAE19D5F882006E530E /* ExpirationTableViewController.h */,
 				8D2CEFAF19D5F882006E530E /* ExpirationTableViewController.m */,
 				8DE79C5019DDCFB00065AD7E /* ImageTestViewController.h */,
@@ -331,6 +336,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D2CEFB919D60E19006E530E /* CoreDataHelper.m in Sources */,
+				8D401B0019E717DB002B5F79 /* EXLModel.m in Sources */,
 				8D4E963E19DCAF6F0047B3E3 /* UIImage+Filters.m in Sources */,
 				8D2CEFB019D5F882006E530E /* ExpirationTableViewController.m in Sources */,
 				8D16B76319D875C600E58B06 /* AddItemViewController.m in Sources */,
