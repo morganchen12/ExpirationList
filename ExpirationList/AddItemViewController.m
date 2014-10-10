@@ -60,7 +60,7 @@
         [self.navigationBar setHidesBackButton:YES animated:YES];
         self.cameraBarButton.enabled = NO;
     });
-    UIImage *imageToTest = [image binaryImageFromAdaptiveThresholdingWithAreaRadius:12 andConstant:4];
+    UIImage *imageToTest = [image binaryImageFromAdaptiveThresholdingWithAreaRadius:15 andConstant:3];
     Tesseract *tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];
     [tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz." forKey:@"tessedit_char_whitelist"];
     tesseract.delegate = self;
@@ -107,8 +107,8 @@
 
 -(void)testTesseract {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        [self recognizeImageWithTesseract:[UIImage imageNamed:@"Grocery_receipts_001.jpg"]];
-        [self recognizeImageWithTesseract:[UIImage imageNamed:@"receipt3.jpg"]];
+        [self recognizeImageWithTesseract:[UIImage imageNamed:@"Grocery_receipts_001.jpg"]];
+//        [self recognizeImageWithTesseract:[UIImage imageNamed:@"receipt3.jpg"]];
     });
 }
 
