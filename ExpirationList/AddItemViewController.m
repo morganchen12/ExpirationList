@@ -35,11 +35,30 @@
     
 }
 
-#pragma mark - Storyboard and helper methods
+#pragma mark - Storyboard / CoreData and helper methods
 
 - (IBAction)saveItem:(id)sender {
     [CoreDataHelper insertExpirableWithName:self.nameTextField.text date:self.datePicker.date];
     [CoreDataHelper save];
+}
+
+-(void)saveItems:(NSArray *)array {
+    [self.activityIndicator startAnimating];
+    self.saveButton.userInteractionEnabled = NO;
+    [self.navigationBar setHidesBackButton:YES animated:YES];
+    self.cameraBarButton.enabled = NO;
+    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        for(NSString* itemName in array){
+            if(itemName.length < 3){
+                NSAssert(@"Cannot add empty item to food array", itemName);
+            }
+            [CoreDataHelper insertExpirableWithName:itemName date:self.datePicker.date];
+        }
+    });
+    [self.activityIndicator stopAnimating];
+    self.saveButton.userInteractionEnabled = YES;
+    [self.navigationBar setHidesBackButton:NO animated:YES];
+    self.cameraBarButton.enabled = YES;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -54,7 +73,7 @@
 
 -(void)recognizeImageWithTesseract:(UIImage *)image {
     //should perform in background
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_sync(dispatch_get_main_queue(), ^{
         [self.activityIndicator startAnimating];
         self.saveButton.userInteractionEnabled = NO;
         [self.navigationBar setHidesBackButton:YES animated:YES];
@@ -67,8 +86,9 @@
     [tesseract setImage:imageToTest];
     [tesseract recognize];
     NSLog(@"%@", tesseract.recognizedText);
-    NSArray *words = [EXLModel itemsFromOCROutput:tesseract.recognizedText];
-    dispatch_async(dispatch_get_main_queue(), ^{
+    NSSet *items = [EXLModel itemsFromOCROutput:tesseract.recognizedText];
+    [self saveItems:[items allObjects]];
+    dispatch_sync(dispatch_get_main_queue(), ^{
         [self.activityIndicator stopAnimating];
         self.saveButton.userInteractionEnabled = YES;
         [self.navigationBar setHidesBackButton:NO animated:YES];
@@ -84,24 +104,26 @@
 #pragma mark - UIImagePickerControllerDelegate
 
 - (IBAction)openCamera:(id)sender {
-    [self testTesseract];
-//    UIImagePickerController *imgPicker = [UIImagePickerController new];
-//    imgPicker.delegate = self;
-//    
-//    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-//    {
-//        imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-//        [self presentViewController:imgPicker animated:YES completion:nil];
-//    }
+    UIImagePickerController *imgPicker = [UIImagePickerController new];
+    imgPicker.delegate = self;
+    
+    if([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
+        imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self presentViewController:imgPicker animated:YES completion:nil];
+    }
+    else {
+        NSLog(@"No rear camera, rip dreams");
+        [self testTesseract];
+    }
 }
 
-//-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-//    UIImage *image = info[UIImagePickerControllerOriginalImage];
-//    [picker dismissViewControllerAnimated:YES completion:nil];
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-//        [self recognizeImageWithTesseract:image];
-//    });
-//}
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        [self recognizeImageWithTesseract:image];
+    });
+}
 
 #pragma mark - Tests
 

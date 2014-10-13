@@ -75,7 +75,6 @@
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if(editingStyle == UITableViewCellEditingStyleDelete){
-        NSLog(@"delete");
         [[CoreDataHelper managedObjectContext] deleteObject:self.expirables[indexPath.row]];
         [self.expirables removeObjectAtIndex:indexPath.row];
         [(AppDelegate *)[UIApplication sharedApplication].delegate saveContext];

@@ -10,6 +10,6 @@
 
 @interface EXLModel : NSObject
 
-+(NSArray *)itemsFromOCROutput:(NSString *)ocrOutput;
++(NSSet *)itemsFromOCROutput:(NSString *)ocrOutput;
 
 @end
