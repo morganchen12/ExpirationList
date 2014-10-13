@@ -49,11 +49,10 @@
     self.cameraBarButton.enabled = NO;
     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         for(NSString* itemName in array){
-            if(itemName.length < 3){
-                NSAssert(@"Cannot add empty item to food array", itemName);
-            }
+            NSAssert([itemName length] > 0, @"Cannot add empty item to food array");
             [CoreDataHelper insertExpirableWithName:itemName date:self.datePicker.date];
         }
+        [CoreDataHelper save];
     });
     [self.activityIndicator stopAnimating];
     self.saveButton.userInteractionEnabled = YES;

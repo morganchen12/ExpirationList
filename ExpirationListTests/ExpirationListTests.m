@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import "EXLModel.h"
 
 @interface ExpirationListTests : XCTestCase
 
@@ -25,9 +26,27 @@
     [super tearDown];
 }
 
-- (void)testExample {
+- (void)testItemStringScanner {
     // This is an example of a functional test case.
-    XCTAssert(YES, @"Pass");
+    NSString *testInput = @"foo\n\nbar baz 4.00\n       \n\n\n\n";
+    NSSet *results = [EXLModel itemsFromOCROutput:testInput];
+    XCTAssert([results containsObject:@"foo"], @"Expected bare text line");
+    XCTAssert(![results containsObject:@""], @"Should not contain any empty lines");
+    NSUInteger idx = [[results allObjects] indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [[obj stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0;
+    }];
+    XCTAssert(idx == NSNotFound, @"Should not contain any lines that trim to zero length");
+}
+
+- (void)testItemStringScannerFull {
+    NSString *testInput = @"SUBTOTRL 46.04\nTax 1 7.000 X 0.26\n. TOTHL 46.30\nDEBIT TENO 46.30\nCHRNGE DUE 0.00\n";
+    NSSet *results = [EXLModel itemsFromOCROutput:testInput];
+//    XCTAssert([results containsObject:@"foo"], @"Expected bare text line");
+    XCTAssert(![results containsObject:@""], @"Should not contain any empty lines");
+    NSUInteger idx = [[results allObjects] indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [[obj stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0;
+    }];
+    XCTAssert(idx == NSNotFound, @"Should not contain any lines that trim to zero length");
 }
 
 - (void)testPerformanceExample {

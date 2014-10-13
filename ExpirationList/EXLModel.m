@@ -43,12 +43,12 @@
         
         //delete everything below SUBTOTAL, this marks the end of the list of food items
         if([self stringProbablyDoesContainSubtotal:lines[i]]){
-            [lines removeObjectsInRange:NSMakeRange(i, [lines count]-i-1)];
+            [lines removeObjectsInRange:NSMakeRange(i, [lines count]-i)];
             break;
         }
         
         //extremely short lines are likely to be noise
-        if([lines[i] length] < 4){
+        if([lines[i] length] < 3){
             [lines removeObjectAtIndex:i];
             i--;
         }
