@@ -59,7 +59,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ExpirableCell" forIndexPath:indexPath];
     NSString *name = [self.expirables[indexPath.row] name];
     cell.textLabel.text = name;
-    NSLog(@"name = %@", name);
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];

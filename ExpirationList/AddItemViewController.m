@@ -38,15 +38,17 @@
 #pragma mark - Storyboard / CoreData and helper methods
 
 - (IBAction)saveItem:(id)sender {
-    [CoreDataHelper insertExpirableWithName:self.nameTextField.text date:self.datePicker.date];
-    [CoreDataHelper save];
+    [self toggleBusyStatus:YES];
+    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [CoreDataHelper insertExpirableWithName:self.nameTextField.text date:self.datePicker.date];
+        [CoreDataHelper save];
+    });
+    [self toggleBusyStatus:NO];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)saveItems:(NSArray *)array {
-    [self.activityIndicator startAnimating];
-    self.saveButton.userInteractionEnabled = NO;
-    [self.navigationBar setHidesBackButton:YES animated:YES];
-    self.cameraBarButton.enabled = NO;
+    [self toggleBusyStatus:YES];
     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         for(NSString* itemName in array){
             NSAssert([itemName length] > 0, @"Cannot add empty item to food array");
@@ -54,11 +56,22 @@
         }
         [CoreDataHelper save];
     });
-    [self.activityIndicator stopAnimating];
-    self.saveButton.userInteractionEnabled = YES;
-    [self.navigationBar setHidesBackButton:NO animated:YES];
-    self.cameraBarButton.enabled = YES;
-    [self.navigationController popViewControllerAnimated:YES];
+    [self toggleBusyStatus:NO];
+}
+
+-(void)toggleBusyStatus:(BOOL)busy { //if starting tasks, busy = YES
+    if(busy){
+        [self.activityIndicator startAnimating];
+        self.saveButton.userInteractionEnabled = NO;
+        [self.navigationBar setHidesBackButton:YES animated:YES];
+        self.cameraBarButton.enabled = NO;
+    }
+    else {
+        [self.activityIndicator stopAnimating];
+        self.saveButton.userInteractionEnabled = YES;
+        [self.navigationBar setHidesBackButton:NO animated:YES];
+        self.cameraBarButton.enabled = YES;
+    }
 }
 
 #pragma mark - UITextFieldDelegate
@@ -71,27 +84,24 @@
 #pragma mark - TesseractDelegate
 
 -(void)recognizeImageWithTesseract:(UIImage *)image {
-    //should perform in background
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self.activityIndicator startAnimating];
-        self.saveButton.userInteractionEnabled = NO;
-        [self.navigationBar setHidesBackButton:YES animated:YES];
-        self.cameraBarButton.enabled = NO;
-    });
-    UIImage *imageToTest = [image binaryImageFromAdaptiveThresholdingWithAreaRadius:15 andConstant:3];
-    Tesseract *tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];
-    [tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz." forKey:@"tessedit_char_whitelist"];
-    tesseract.delegate = self;
-    [tesseract setImage:imageToTest];
-    [tesseract recognize];
-    NSLog(@"%@", tesseract.recognizedText);
-    NSSet *items = [EXLModel itemsFromOCROutput:tesseract.recognizedText];
-    [self saveItems:[items allObjects]];
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self.activityIndicator stopAnimating];
-        self.saveButton.userInteractionEnabled = YES;
-        [self.navigationBar setHidesBackButton:NO animated:YES];
-        self.cameraBarButton.enabled = YES;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self toggleBusyStatus:YES];
+        });
+        
+        //run OCR on image
+        UIImage *imageToTest = [image binaryImageFromAdaptiveThresholdingWithAreaRadius:15 andConstant:3];
+        Tesseract *tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];
+        [tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz." forKey:@"tessedit_char_whitelist"];
+        tesseract.delegate = self;
+        [tesseract setImage:imageToTest];
+        [tesseract recognize];
+        NSLog(@"%@", tesseract.recognizedText);
+        NSSet *items = [EXLModel itemsFromOCROutput:tesseract.recognizedText];
+        [self saveItems:[items allObjects]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self toggleBusyStatus:NO];
+        });
     });
 }
 
@@ -118,19 +128,15 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = info[UIImagePickerControllerOriginalImage];
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+    [picker dismissViewControllerAnimated:YES completion:^{
         [self recognizeImageWithTesseract:image];
-    });
+    }];
 }
 
 #pragma mark - Tests
 
 -(void)testTesseract {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self recognizeImageWithTesseract:[UIImage imageNamed:@"Grocery_receipts_001.jpg"]];
-//        [self recognizeImageWithTesseract:[UIImage imageNamed:@"receipt3.jpg"]];
-    });
+    [self recognizeImageWithTesseract:[UIImage imageNamed:@"receipt1.jpg"]];
 }
 
 

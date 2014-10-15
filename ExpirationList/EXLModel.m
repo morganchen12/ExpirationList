@@ -15,6 +15,14 @@
     NSMutableArray *lines = [[ocrOutput componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n"]] mutableCopy];
     
     //loop through lines, treating each line as an array of whitespace separated words
+    //first loop removes noise
+    
+    for(int i = 0; i < [lines count]; i++) {
+        if([self lineIsBeginningOfItemList:lines[i]]){
+            [lines removeObjectsInRange:NSMakeRange(0, i)];
+            break;
+        }
+    }
     for(int i = 0; i < [lines count]; i++) {
         NSMutableArray *words = [[lines[i] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] mutableCopy];
         
@@ -39,13 +47,13 @@
         }
         //write over line with new line
         [lines replaceObjectAtIndex:i withObject:[words componentsJoinedByString:@" "]];
-        NSLog(@"%@", [words componentsJoinedByString:@" "]);
         
         //delete everything below SUBTOTAL, this marks the end of the list of food items
         if([self stringProbablyDoesContainSubtotal:lines[i]]){
             [lines removeObjectsInRange:NSMakeRange(i, [lines count]-i)];
             break;
         }
+        NSLog(@"%@", [words componentsJoinedByString:@" "]);
         
         //extremely short lines are likely to be noise
         if([lines[i] length] < 3){
@@ -69,6 +77,43 @@
     NSError *error;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[0-9]{2,}" options:0 error:&error];
     return [regex numberOfMatchesInString:string options:0 range:NSMakeRange(0, [string length])] > 0;
+}
+
++(BOOL)lineIsBeginningOfItemList:(NSString *)line {
+    NSMutableArray *words = [[line componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] mutableCopy];
+    
+    for(int j = 0; j < [words count]; j++){
+        //words of length 2 or less are almost never useful, e.g. '20 oz'
+        if([words[j] length] < 3){
+            [words removeObjectAtIndex:j];
+            j--;
+        }
+    }
+    
+    if([words count] == 0) {
+        return NO;
+    }
+    
+    NSString *firstWord = words[0];
+    NSString *lastWord = words[[words count]-1];
+    
+    if([self stringIsProbablyEntirelyNumbers:firstWord]) {
+        return NO;
+    }
+    
+    if(![self stringIsProbablyEntirelyNumbers:lastWord]) {
+        return NO;
+    }
+    
+    if([firstWord rangeOfString:@"."].location != NSNotFound) {
+        return NO;
+    }
+    
+    if([lastWord rangeOfString:@"."].location == NSNotFound) {
+        return NO;
+    }
+    
+    return YES;
 }
 
 @end
