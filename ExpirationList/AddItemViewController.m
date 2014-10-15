@@ -48,6 +48,8 @@
 }
 
 -(void)saveItems:(NSArray *)array {
+    
+    //saves everything in the array using date shown in datePicker
     [self toggleBusyStatus:YES];
     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         for(NSString* itemName in array){
@@ -136,7 +138,7 @@
 #pragma mark - Tests
 
 -(void)testTesseract {
-    [self recognizeImageWithTesseract:[UIImage imageNamed:@"receipt1.jpg"]];
+    [self recognizeImageWithTesseract:[UIImage imageNamed:@"receipt3.jpg"]];
 }
 
 
