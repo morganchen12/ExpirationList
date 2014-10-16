@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "EXLModel.h"
+#import "UIImage+Filters.h"
 
 @interface ExpirationListTests : XCTestCase
 
@@ -47,6 +48,12 @@
         return [[obj stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0;
     }];
     XCTAssert(idx == NSNotFound, @"Should not contain any lines that trim to zero length");
+}
+
+-(void)testImageProcessing {
+    UIImage *testImage = [UIImage imageNamed:@"receipt3"];
+    testImage = [testImage binaryImageFromAdaptiveThresholdingWithAreaRadius:150 andConstant:10];
+    XCTAssert(!(testImage), @"Test is for benchmark only");
 }
 
 - (void)testPerformanceExample {

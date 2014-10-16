@@ -59,16 +59,18 @@ typedef enum {
     // paint the bitmap to our contexts which will fill in the pixels array
     CGContextDrawImage(context, CGRectMake(0, 0, width, height), [imageAsGrayScale CGImage]);
     CGContextDrawImage(contextToReadFrom, CGRectMake(0, 0, width, height), [imageAsGrayScale CGImage]);
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 
     for(int y = 0; y < height; y++) {
-        for(int x = 0; x < width; x++) {
+        dispatch_apply(width, queue, ^(size_t x) {
             uint8_t *rgbaPixel = (uint8_t *) &pixels[y*width + x];
             int xMin, yMin, xMax, yMax;
             
             //set up bounds of local region to use for thresholding
-            xMin = MAX(0, x - radius);
+            xMin = MAX(0, (int)x - radius);
             yMin = MAX(0, y - radius);
-            xMax = MIN(width-1, x + radius);
+            xMax = MIN(width-1, (int)x + radius);
             yMax = MIN(height-1, y + radius);
             
             //loop through region near pixel to find average pixel value
@@ -94,7 +96,7 @@ typedef enum {
                 rgbaPixel[BLUE] = black;
                 rgbaPixel[GREEN] = black;
             }
-        }
+        });
     }
 
     // create a new CGImageRef from our context with the modified pixels
