@@ -33,6 +33,7 @@ typedef enum {
 } PIXELS;
 
 -(UIImage *)binaryImageFromAdaptiveThresholdingWithAreaRadius:(int)radius andConstant:(int)constant {
+    // Do EXTREME PROCESSING!!
     UIImage *imageAsGrayScale = [self blackAndWhite];
     
     CGSize size = self.size;
