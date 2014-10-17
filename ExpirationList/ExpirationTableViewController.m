@@ -32,6 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:nil action:nil];
     if([self.expirables count]==0){
         
     }
@@ -82,7 +83,9 @@
     }
 }
 
-- (IBAction)sortElements:(id)sender {
+#pragma mark - Helper Methods
+
+- (void)sortElements {
     [self.expirables sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         double age1 = [((Expirable *)obj1).purchaseDate timeIntervalSinceNow];
         double age2 = [((Expirable *)obj2).purchaseDate timeIntervalSinceNow];

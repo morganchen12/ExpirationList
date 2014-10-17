@@ -52,7 +52,7 @@
 
 -(void)testImageProcessing {
     UIImage *testImage = [UIImage imageNamed:@"receipt3"];
-    testImage = [testImage binaryImageFromAdaptiveThresholdingWithAreaRadius:150 andConstant:10];
+    testImage = [testImage binaryImageFromAdaptiveThresholdingWithAreaRadius:10 andConstant:10];
     XCTAssert(!(testImage), @"Test is for benchmark only");
 }
 

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+        </view>
+        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" adjustsFontSizeToFit="NO" minimumFontSize="17" id="gGT-LN-p3I">
+            <rect key="frame" x="0.0" y="0.0" width="487" height="30"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+            <textInputTraits key="textInputTraits"/>
+        </textField>
+        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qKA-9k-dt6">
+            <rect key="frame" x="0.0" y="0.0" width="89" height="21"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+            <nil key="highlightedColor"/>
+        </label>
+        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="L6J-Gq-VzB">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="162"/>
+            <constraints>
+                <constraint firstAttribute="width" constant="320" id="sfS-PF-TEa"/>
+            </constraints>
+            <date key="date" timeIntervalSinceReferenceDate="433616700.141873">
+                <!--2014-09-28 17:05:00 +0000-->
+            </date>
+        </datePicker>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="06R-Oi-ItV">
+            <rect key="frame" x="0.0" y="0.0" width="90" height="30"/>
+            <constraints>
+                <constraint firstAttribute="height" constant="30" id="nug-K3-jXP"/>
+                <constraint firstAttribute="width" constant="90" id="rmc-54-LvT"/>
+            </constraints>
+            <state key="normal" title="Save">
+                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+            </state>
+        </button>
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rzi-Jw-kc9" customClass="AddItemView">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fdg-oA-y9l">
+                    <rect key="frame" x="105" y="0.0" width="487" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yU7-2U-qnx">
+                    <rect key="frame" x="8" y="4" width="89" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="eak-HM-R79">
+                    <rect key="frame" x="140" y="38" width="320" height="162"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="1iS-TN-uJm"/>
+                    </constraints>
+                    <date key="date" timeIntervalSinceReferenceDate="433616700.141873">
+                        <!--2014-09-28 17:05:00 +0000-->
+                    </date>
+                </datePicker>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SWZ-ss-Eaa">
+                    <rect key="frame" x="255" y="208" width="90" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="b3Y-ev-8zT"/>
+                        <constraint firstAttribute="width" constant="90" id="zef-Zp-Q6P"/>
+                    </constraints>
+                    <state key="normal" title="Save">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="PNv-BT-l10">
+                    <rect key="frame" x="290" y="290" width="20" height="20"/>
+                </activityIndicatorView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="yU7-2U-qnx" firstAttribute="top" secondItem="Rzi-Jw-kc9" secondAttribute="top" constant="4" id="4gP-Q7-hkE"/>
+                <constraint firstAttribute="trailing" secondItem="Fdg-oA-y9l" secondAttribute="trailing" constant="8" id="5bO-yp-ItK"/>
+                <constraint firstAttribute="height" constant="400" id="Dka-VX-gv1"/>
+                <constraint firstItem="yU7-2U-qnx" firstAttribute="leading" secondItem="Rzi-Jw-kc9" secondAttribute="leading" constant="8" id="LWH-x3-lcZ"/>
+                <constraint firstItem="Fdg-oA-y9l" firstAttribute="top" secondItem="Rzi-Jw-kc9" secondAttribute="top" id="ahP-aZ-TtK"/>
+                <constraint firstAttribute="centerX" secondItem="SWZ-ss-Eaa" secondAttribute="centerX" id="bJJ-bs-A17"/>
+                <constraint firstAttribute="centerY" secondItem="PNv-BT-l10" secondAttribute="centerY" id="erE-kc-hgY"/>
+                <constraint firstAttribute="centerX" secondItem="PNv-BT-l10" secondAttribute="centerX" id="kLc-jf-7vh"/>
+                <constraint firstItem="Fdg-oA-y9l" firstAttribute="leading" secondItem="yU7-2U-qnx" secondAttribute="trailing" constant="8" id="kwS-KP-nRL"/>
+                <constraint firstItem="SWZ-ss-Eaa" firstAttribute="top" secondItem="eak-HM-R79" secondAttribute="bottom" constant="8" id="ose-eC-b9J"/>
+                <constraint firstAttribute="centerX" secondItem="eak-HM-R79" secondAttribute="centerX" id="pIU-A7-kqA"/>
+                <constraint firstItem="eak-HM-R79" firstAttribute="top" secondItem="Fdg-oA-y9l" secondAttribute="bottom" constant="8" id="tkb-OY-dhe"/>
+            </constraints>
+            <connections>
+                <outlet property="datePicker" destination="eak-HM-R79" id="vRq-gR-NEJ"/>
+                <outlet property="nameTextField" destination="Fdg-oA-y9l" id="qgx-WE-bVu"/>
+            </connections>
+        </view>
+    </objects>
+</document>

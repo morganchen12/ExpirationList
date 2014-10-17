@@ -35,6 +35,15 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+}
+
 #pragma mark - Storyboard / CoreData and helper methods
 
 - (IBAction)saveItem:(id)sender {
@@ -83,7 +92,7 @@
     return YES;
 }
 
-#pragma mark - TesseractDelegate
+#pragma mark - Image Processing / OCR
 
 -(void)recognizeImageWithTesseract:(UIImage *)image {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -92,14 +101,9 @@
         });
         
         //run OCR on image
-        UIImage *imageToTest = [image binaryImageFromAdaptiveThresholdingWithAreaRadius:15 andConstant:3];
-        Tesseract *tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];
-        [tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz." forKey:@"tessedit_char_whitelist"];
-        tesseract.delegate = self;
-        [tesseract setImage:imageToTest];
-        [tesseract recognize];
-        NSLog(@"%@", tesseract.recognizedText);
-        NSSet *items = [EXLModel itemsFromOCROutput:tesseract.recognizedText];
+        NSString *output = [EXLModel target:self recognizeImageWithTesseract:image];
+        NSLog(@"%@", output);
+        NSSet *items = [EXLModel itemsFromOCROutput:output];
         [self saveItems:[items allObjects]];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self toggleBusyStatus:NO];
@@ -107,20 +111,15 @@
     });
 }
 
-- (BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract*)tesseract {
-//    NSLog(@"progress: %d", tesseract.progress);
-    return NO;  // return YES, if you need to interrupt tesseract before it finishes
+-(BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract *)tesseract {
+    return NO;
 }
 
 #pragma mark - UIImagePickerControllerDelegate
 
 - (IBAction)openCamera:(id)sender {
-    UIImagePickerController *imgPicker = [UIImagePickerController new];
-    imgPicker.delegate = self;
-    
     if([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
-        imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [self presentViewController:imgPicker animated:YES completion:nil];
+        [EXLModel openCameraFromViewController:self];
     }
     else {
         NSLog(@"No rear camera, rip dreams");

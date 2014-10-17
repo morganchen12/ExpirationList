@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D15D24319F18F7800F4BFCB /* LandingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D15D24219F18F7800F4BFCB /* LandingPageViewController.m */; };
 		8D16B76319D875C600E58B06 /* AddItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D16B76219D875C600E58B06 /* AddItemViewController.m */; };
 		8D28317119DC939400D5E2C1 /* receipt1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8D28317019DC939400D5E2C1 /* receipt1.jpg */; };
 		8D2CEF8819D5DB47006E530E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CEF8719D5DB47006E530E /* main.m */; };
@@ -19,6 +20,8 @@
 		8D2CEFB019D5F882006E530E /* ExpirationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CEFAF19D5F882006E530E /* ExpirationTableViewController.m */; };
 		8D2CEFB619D5FCDE006E530E /* Expirable.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CEFB519D5FCDE006E530E /* Expirable.m */; };
 		8D2CEFB919D60E19006E530E /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CEFB819D60E19006E530E /* CoreDataHelper.m */; };
+		8D2FDD8619F0670B00EAB629 /* AddItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D2FDD8519F0670B00EAB629 /* AddItemView.xib */; };
+		8D2FDD8919F06BB200EAB629 /* AddItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2FDD8819F06BB200EAB629 /* AddItemView.m */; };
 		8D401B0019E717DB002B5F79 /* EXLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D401AFF19E717DB002B5F79 /* EXLModel.m */; };
 		8D4E963E19DCAF6F0047B3E3 /* UIImage+Filters.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E963D19DCAF6F0047B3E3 /* UIImage+Filters.m */; };
 		8D569AC919DB466200993C3C /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 8D569AC819DB466200993C3C /* tessdata */; };
@@ -43,6 +46,8 @@
 /* Begin PBXFileReference section */
 		3F0044107677CE9F481C1E4F /* Pods-ExpirationList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExpirationList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ExpirationList/Pods-ExpirationList.debug.xcconfig"; sourceTree = "<group>"; };
 		6575B264468069D7069D6E90 /* Pods-ExpirationList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExpirationList.release.xcconfig"; path = "Pods/Target Support Files/Pods-ExpirationList/Pods-ExpirationList.release.xcconfig"; sourceTree = "<group>"; };
+		8D15D24119F18F7800F4BFCB /* LandingPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandingPageViewController.h; sourceTree = "<group>"; };
+		8D15D24219F18F7800F4BFCB /* LandingPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandingPageViewController.m; sourceTree = "<group>"; };
 		8D16B76119D875C600E58B06 /* AddItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddItemViewController.h; sourceTree = "<group>"; };
 		8D16B76219D875C600E58B06 /* AddItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddItemViewController.m; sourceTree = "<group>"; };
 		8D28317019DC939400D5E2C1 /* receipt1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = receipt1.jpg; sourceTree = "<group>"; };
@@ -64,6 +69,9 @@
 		8D2CEFB519D5FCDE006E530E /* Expirable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Expirable.m; sourceTree = "<group>"; };
 		8D2CEFB719D60E19006E530E /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		8D2CEFB819D60E19006E530E /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
+		8D2FDD8519F0670B00EAB629 /* AddItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddItemView.xib; sourceTree = "<group>"; };
+		8D2FDD8719F06BB200EAB629 /* AddItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddItemView.h; sourceTree = "<group>"; };
+		8D2FDD8819F06BB200EAB629 /* AddItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddItemView.m; sourceTree = "<group>"; };
 		8D401AFE19E717DB002B5F79 /* EXLModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXLModel.h; sourceTree = "<group>"; };
 		8D401AFF19E717DB002B5F79 /* EXLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXLModel.m; sourceTree = "<group>"; };
 		8D4E963C19DCAF6F0047B3E3 /* UIImage+Filters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Filters.h"; sourceTree = "<group>"; };
@@ -132,6 +140,11 @@
 				8D2CEFAE19D5F882006E530E /* ExpirationTableViewController.h */,
 				8D2CEFAF19D5F882006E530E /* ExpirationTableViewController.m */,
 				8DE79C5019DDCFB00065AD7E /* ImageTestViewController.h */,
+				8D15D24119F18F7800F4BFCB /* LandingPageViewController.h */,
+				8D15D24219F18F7800F4BFCB /* LandingPageViewController.m */,
+				8D2FDD8719F06BB200EAB629 /* AddItemView.h */,
+				8D2FDD8819F06BB200EAB629 /* AddItemView.m */,
+				8D2FDD8519F0670B00EAB629 /* AddItemView.xib */,
 				8DE79C5119DDCFB00065AD7E /* ImageTestViewController.m */,
 				8D2CEF9219D5DB47006E530E /* Main.storyboard */,
 				8D2CEF9519D5DB47006E530E /* Images.xcassets */,
@@ -281,6 +294,7 @@
 				8D2CEF9419D5DB47006E530E /* Main.storyboard in Resources */,
 				8D569AC919DB466200993C3C /* tessdata in Resources */,
 				8DE79C4F19DDCE800065AD7E /* receipt3.jpg in Resources */,
+				8D2FDD8619F0670B00EAB629 /* AddItemView.xib in Resources */,
 				8D2CEF9919D5DB47006E530E /* LaunchScreen.xib in Resources */,
 				8DE79C4D19DDCDD60065AD7E /* receipt2.jpg in Resources */,
 				8D2CEF9619D5DB47006E530E /* Images.xcassets in Resources */,
@@ -338,9 +352,11 @@
 				8D2CEFB919D60E19006E530E /* CoreDataHelper.m in Sources */,
 				8D401B0019E717DB002B5F79 /* EXLModel.m in Sources */,
 				8D4E963E19DCAF6F0047B3E3 /* UIImage+Filters.m in Sources */,
+				8D2FDD8919F06BB200EAB629 /* AddItemView.m in Sources */,
 				8D2CEFB019D5F882006E530E /* ExpirationTableViewController.m in Sources */,
 				8D16B76319D875C600E58B06 /* AddItemViewController.m in Sources */,
 				8D2CEF8E19D5DB47006E530E /* ExpirationList.xcdatamodeld in Sources */,
+				8D15D24319F18F7800F4BFCB /* LandingPageViewController.m in Sources */,
 				8D2CEF8B19D5DB47006E530E /* AppDelegate.m in Sources */,
 				8D2CEFB619D5FCDE006E530E /* Expirable.m in Sources */,
 				8D2CEF8819D5DB47006E530E /* main.m in Sources */,

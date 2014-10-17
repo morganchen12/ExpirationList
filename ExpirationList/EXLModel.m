@@ -7,8 +7,13 @@
 //
 
 #import "EXLModel.h"
+#import <UIKit/UIKit.h>
+#import "UIImage+Filters.h"
+#import <TesseractOCR/TesseractOCR.h>
 
 @implementation EXLModel
+
+#pragma mark - String Processing
 
 +(NSSet *)itemsFromOCROutput:(NSString *)ocrOutput {
     //break text into an array of individual lines
@@ -67,6 +72,39 @@
     return [NSSet setWithArray:lines];
 }
 
+#pragma mark - UIImagePickerControllerDelegate
+//check if camera available before calling this method
++(void)openCameraFromViewController:(id<UIImagePickerControllerDelegate, UINavigationControllerDelegate>)viewController {
+    UIImagePickerController *imgPicker = [UIImagePickerController new];
+    imgPicker.delegate = viewController;
+    
+    imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    [(UIViewController *)viewController presentViewController:imgPicker animated:YES completion:nil];
+}
+
+#pragma mark - TesseractDelegate
+
+//perform on background thread
++(NSString *)target:(id<TesseractDelegate>)target recognizeImageWithTesseract:(UIImage *)image {
+    
+    //run OCR on image
+    UIImage *imageToTest = [image binaryImageFromAdaptiveThresholdingWithAreaRadius:15 andConstant:3];
+    Tesseract *tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];
+    [tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz." forKey:@"tessedit_char_whitelist"];
+    tesseract.delegate = target;
+    [tesseract setImage:imageToTest];
+    [tesseract recognize];
+    NSLog(@"%@", tesseract.recognizedText);
+    return tesseract.recognizedText;
+}
+
+- (BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract*)tesseract {
+    //    NSLog(@"progress: %d", tesseract.progress);
+    return NO;  // return YES, if you need to interrupt tesseract before it finishes
+}
+
+#pragma mark - Helper Methods
+
 +(BOOL)stringProbablyDoesContainSubtotal:(NSString *)string {
     NSError *error;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"S[A-Za-z0-9]BT[A-Za-z0-9]T[A-Za-z0-9]L" options:0 error:&error];
@@ -105,10 +143,12 @@
         return NO;
     }
     
+    // check if first word contains a period; words with periods are likely to be prices
     if([firstWord rangeOfString:@"."].location != NSNotFound) {
         return NO;
     }
     
+    // check if last word contains a period, e.g. "3.25"
     if([lastWord rangeOfString:@"."].location == NSNotFound) {
         return NO;
     }

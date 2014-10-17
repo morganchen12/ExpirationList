@@ -1,15 +1,70 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ccc-mg-gzj">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
+        <!--Landing Page View Controller-->
+        <scene sceneID="M3F-Pl-IPq">
+            <objects>
+                <viewController id="laY-BH-ka8" customClass="LandingPageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8sF-rB-8oO"/>
+                        <viewControllerLayoutGuide type="bottom" id="44O-Nz-Wjl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aZC-Ds-eFO">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eah-EM-GQd">
+                                <rect key="frame" x="221" y="101" width="159" height="30"/>
+                                <state key="normal" title="Take Picture of Receipt">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="openCamera:" destination="laY-BH-ka8" eventType="touchUpInside" id="8Vh-Nz-ei7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1UV-bw-5jd">
+                                <rect key="frame" x="269" y="253" width="62" height="30"/>
+                                <state key="normal" title="View List">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="YMk-lu-RqU" kind="show" id="5bY-ch-MWU"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="RZD-oz-etZ">
+                                <rect key="frame" x="290" y="258" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="RZD-oz-etZ" secondAttribute="centerY" id="Jhd-jZ-ppc"/>
+                            <constraint firstAttribute="centerX" secondItem="eah-EM-GQd" secondAttribute="centerX" id="Kar-iS-sxe"/>
+                            <constraint firstItem="1UV-bw-5jd" firstAttribute="top" secondItem="eah-EM-GQd" secondAttribute="bottom" constant="122" id="Xwv-Kt-Jjk"/>
+                            <constraint firstAttribute="centerX" secondItem="1UV-bw-5jd" secondAttribute="centerX" id="gew-bp-HUJ"/>
+                            <constraint firstAttribute="centerX" secondItem="RZD-oz-etZ" secondAttribute="centerX" id="psX-WV-h2F"/>
+                            <constraint firstItem="eah-EM-GQd" firstAttribute="top" secondItem="8sF-rB-8oO" secondAttribute="bottom" constant="101" id="rvo-Po-Rl7"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Lv9-GU-J4T"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="RZD-oz-etZ" id="PWh-5m-JF4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aBc-bP-Div" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="898" y="371"/>
+        </scene>
         <!--Expiration Table View Controller-->
         <scene sceneID="sbo-cw-80o">
             <objects>
                 <tableViewController id="YMk-lu-RqU" customClass="ExpirationTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="jVu-Hn-Sie">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -40,11 +95,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="QXT-vC-hhp">
-                        <barButtonItem key="leftBarButtonItem" title="Sort" id="HAI-ng-VyP">
-                            <connections>
-                                <action selector="sortElements:" destination="YMk-lu-RqU" id="za0-Ut-eaZ"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="xq6-Ps-bAZ">
                             <connections>
                                 <segue destination="iq4-0A-58s" kind="show" id="GE1-6p-aQs"/>
@@ -54,7 +104,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BVJ-Wy-PlA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1088" y="371"/>
+            <point key="canvasLocation" x="1587" y="371"/>
         </scene>
         <!--Add Item View Controller-->
         <scene sceneID="lW9-6T-sAa">
@@ -158,14 +208,14 @@
                         <outlet property="cameraBarButton" destination="a5n-ow-gvy" id="B7g-eh-7Pc"/>
                         <outlet property="datePicker" destination="HKQ-dT-rbY" id="uFn-R8-8Bc"/>
                         <outlet property="nameTextField" destination="448-23-qaG" id="t1c-6B-Iax"/>
-                        <outlet property="navigationBar" destination="dHO-IJ-OIc" id="Pl2-aK-cOD"/>
+                        <outlet property="navigationBar" destination="dHO-IJ-OIc" id="yBy-6z-Huq"/>
                         <outlet property="saveButton" destination="XBY-Jj-8JI" id="NbY-mc-Yj2"/>
                         <outlet property="scrollView" destination="vTS-vZ-hmD" id="1Rf-Zn-TQd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gKA-oD-h68" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1788" y="371"/>
+            <point key="canvasLocation" x="2298" y="371"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2Y2-ii-owE">
@@ -178,12 +228,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="YMk-lu-RqU" kind="relationship" relationship="rootViewController" id="Nm4-ym-vfQ"/>
+                        <segue destination="laY-BH-ka8" kind="relationship" relationship="rootViewController" id="M0o-2j-U6T"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lhl-oU-Aqf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="276" y="371"/>
+            <point key="canvasLocation" x="188" y="371"/>
         </scene>
     </scenes>
 </document>

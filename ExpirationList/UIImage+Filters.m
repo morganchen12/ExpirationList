@@ -63,6 +63,8 @@ typedef enum {
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 
     for(int y = 0; y < height; y++) {
+        
+        //inner loop performs tasks on concurrent queue since write conflics are not a problem
         dispatch_apply(width, queue, ^(size_t x) {
             uint8_t *rgbaPixel = (uint8_t *) &pixels[y*width + x];
             int xMin, yMin, xMax, yMax;
