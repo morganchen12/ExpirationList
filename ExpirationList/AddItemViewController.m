@@ -122,7 +122,7 @@
         [EXLModel openCameraFromViewController:self];
     }
     else {
-        NSLog(@"No rear camera, rip dreams");
+        NSLog(@"No rear camera");
         [self testTesseract];
     }
 }

@@ -30,6 +30,19 @@
     return queryResult;
 }
 
++(void)insertExpirablesWithNames:(NSArray *)names {
+    [self insertExpirablesWithNames:names andDate:[NSDate date]];
+}
+
++(void)insertExpirablesWithNames:(NSArray *)names andDate:(NSDate *)date {
+    NSManagedObjectContext *context = [self managedObjectContext];
+    for(NSString *name in names){
+        Expirable *newExpirable = (Expirable *)[NSEntityDescription insertNewObjectForEntityForName:@"Expirable" inManagedObjectContext:context];
+        newExpirable.name = name;
+        newExpirable.purchaseDate = date;
+    }
+}
+
 +(void)insertExpirableWithName:(NSString *)name date:(NSDate *)date {
     NSAssert([name length] > 0, @"Name must be valid!");
     Expirable *newExpirable = (Expirable *)[NSEntityDescription insertNewObjectForEntityForName:@"Expirable" inManagedObjectContext:[CoreDataHelper managedObjectContext]];

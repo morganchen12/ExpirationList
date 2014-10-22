@@ -85,7 +85,7 @@ typedef enum {
                 }
             }
             //average value of local pixels minus constant
-            average = MAX((int)((float) average / pow(radius*2 + 1, 2)) - constant, 0);
+            average = (int)((float) average / pow(radius*2 + 1, 2)) - constant;
             if(rgbaPixel[RED] > average){
                 //pixels brighter than average are set to white (1)
                 uint32_t white = 0xFF;
@@ -170,6 +170,22 @@ typedef enum {
     CGImageRelease(image);
     
     return resultUIImage;
+}
+
+-(UIImage *)normalizeSize {
+    
+    //normalize to height of 2000
+    double ratio = 2000 / self.size.height;
+    float resultWidth = roundf(self.size.width * ratio);
+    float resultHeight = roundf(self.size.height * ratio);
+    CGSize resultSize = CGSizeMake(resultWidth, resultHeight);
+    
+    UIGraphicsBeginImageContextWithOptions(resultSize, YES, 0);
+    [self drawInRect:CGRectMake(0, 0, resultSize.width, resultSize.height)];
+
+    NSLog(@"w, h: %f, %f", self.size.width, self.size.height);
+    
+    return self;
 }
 
 @end

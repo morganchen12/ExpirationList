@@ -10,6 +10,7 @@
 #import "EXLModel.h"
 #import "UIImage+Filters.h"
 #import "CoreDataHelper.h"
+#import "ImageTestViewController.h"
 
 @interface LandingPageViewController ()
 
@@ -50,6 +51,7 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = info[UIImagePickerControllerOriginalImage];
+    NSLog(@"w, h: %f, %f", image.size.width, image.size.height);
     
     [self dismissViewControllerAnimated:YES completion:^{
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -57,31 +59,34 @@
                 [self.activityIndicator startAnimating];
             });
             
-            //process image
-            UIImage *binaryImage = [image binaryImageFromAdaptiveThresholdingWithAreaRadius:12 andConstant:2];
-            NSString *rawOutput = [EXLModel target:self recognizeImageWithTesseract:binaryImage];
+            // process image
+            NSString *rawOutput = [EXLModel target:self recognizeImageWithTesseract:image];
             NSArray *outputNames = [[EXLModel itemsFromOCROutput:rawOutput] allObjects];
             
-            //save everything using current date
-            for(NSString *name in outputNames) {
-                [CoreDataHelper insertExpirableWithName:name date:[NSDate date]];
-            }
+            // save everything using current date
+            [CoreDataHelper insertExpirablesWithNames:outputNames];
+            
+//            UIImage *binaryImage = [[image normalizeSize] binaryImageFromAdaptiveThresholdingWithAreaRadius:20 andConstant:2]; //debug
             
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [self.activityIndicator stopAnimating];
+//                [self performSegueWithIdentifier:@"TestImage" sender:binaryImage]; //debug
             });
         });
     }];
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if([segue.identifier isEqualToString:@"TestImage"]){
+        ImageTestViewController *destination = (ImageTestViewController *)[segue destinationViewController];
+        destination.testImage = (UIImage *)sender;
+        NSLog(@"Done");
+    }
 }
-*/
+
 
 @end

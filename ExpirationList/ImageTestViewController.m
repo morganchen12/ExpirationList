@@ -23,6 +23,7 @@
     self.scrollView.contentSize = _testImage.size;
     self.scrollView.minimumZoomScale = 1;
     self.scrollView.maximumZoomScale = 50;
+    NSLog(@"w, h: %f, %f", _testImage.size.width, _testImage.size.height);
     // Do any additional setup after loading the view.
 }
 

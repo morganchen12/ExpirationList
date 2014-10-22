@@ -1,9 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ccc-mg-gzj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ccc-mg-gzj">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
+        <!--Image Test View Controller-->
+        <scene sceneID="6jY-OS-EiM">
+            <objects>
+                <viewController id="vvA-5S-HbK" customClass="ImageTestViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dcn-Yr-Bko"/>
+                        <viewControllerLayoutGuide type="bottom" id="OZx-Bc-Yug"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ouZ-nd-QlS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0k5-EH-6Ij">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sSv-za-an7">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                    </imageView>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="OZx-Bc-Yug" firstAttribute="top" secondItem="0k5-EH-6Ij" secondAttribute="bottom" id="B6r-sO-B32"/>
+                            <constraint firstItem="0k5-EH-6Ij" firstAttribute="top" secondItem="dcn-Yr-Bko" secondAttribute="bottom" id="B9u-oV-FRI"/>
+                            <constraint firstItem="0k5-EH-6Ij" firstAttribute="leading" secondItem="ouZ-nd-QlS" secondAttribute="leading" id="SgB-LZ-GyV"/>
+                            <constraint firstAttribute="trailing" secondItem="0k5-EH-6Ij" secondAttribute="trailing" id="jHY-l6-j82"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="sSv-za-an7" id="cuU-GA-ADx"/>
+                        <outlet property="scrollView" destination="0k5-EH-6Ij" id="Jau-WP-76g"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kzR-eJ-q3f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="898" y="-345"/>
+        </scene>
         <!--Landing Page View Controller-->
         <scene sceneID="M3F-Pl-IPq">
             <objects>
@@ -52,6 +91,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="activityIndicator" destination="RZD-oz-etZ" id="PWh-5m-JF4"/>
+                        <segue destination="vvA-5S-HbK" kind="show" identifier="TestImage" id="1JS-3P-JZA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aBc-bP-Div" userLabel="First Responder" sceneMemberID="firstResponder"/>
