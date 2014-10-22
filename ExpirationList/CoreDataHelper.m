@@ -34,7 +34,8 @@
     [self insertExpirablesWithNames:names andDate:[NSDate date]];
 }
 
-+(void)insertExpirablesWithNames:(NSArray *)names andDate:(NSDate *)date {
++(void)insertExpirablesWithNames:(NSArray *)namesHelper andDate:(NSDate *)date {
+    NSArray *names = [namesHelper copy];
     NSManagedObjectContext *context = [self managedObjectContext];
     for(NSString *name in names){
         Expirable *newExpirable = (Expirable *)[NSEntityDescription insertNewObjectForEntityForName:@"Expirable" inManagedObjectContext:context];

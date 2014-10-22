@@ -28,19 +28,21 @@
 #pragma mark - View Lifecycle
 
 - (void)viewDidLoad {
+    NSLog(@"DIDLOAD");
     [super viewDidLoad];
     self.datePicker.datePickerMode = UIDatePickerModeDate;
     self.nameTextField.delegate = self;
-    [self.activityIndicator stopAnimating];
     
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    NSLog(@"WILLAPPEAR");
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    NSLog(@"DIDAPPEAR");
     
 }
 
