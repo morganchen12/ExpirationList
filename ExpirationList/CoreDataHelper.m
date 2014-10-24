@@ -13,7 +13,8 @@
 
 @interface CoreDataHelper()
 
-@property(nonatomic, readonly) dispatch_queue_t saveQueue;
+@property(nonatomic, readonly) dispatch_queue_t writeQueue;
+@property(nonatomic, readonly) NSManagedObjectContext *writeContext;
 
 @end
 
@@ -21,7 +22,9 @@
 
 -(instancetype)init {
     if(self = [super init]) {
-        _saveQueue = dispatch_queue_create("com.expirationList.saveQueue", DISPATCH_QUEUE_SERIAL);
+        _writeQueue = dispatch_queue_create("com.expirationList.saveQueue", DISPATCH_QUEUE_SERIAL);
+        _writeContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        _writeContext.parentContext = [CoreDataHelper managedObjectContext];
     }
     return self;
 }
@@ -57,30 +60,56 @@
 }
 
 -(void)insertExpirablesWithNames:(NSArray *)namesHelper andDate:(NSDate *)date {
-    dispatch_async(self.saveQueue, ^{
+    [self.writeContext performBlock:^{
+        // insert items into context
         NSArray *names = [namesHelper copy];
-        NSManagedObjectContext *context = [CoreDataHelper managedObjectContext];
         for(NSString *name in names){
-            Expirable *newExpirable = (Expirable *)[NSEntityDescription insertNewObjectForEntityForName:@"Expirable" inManagedObjectContext:context];
+            Expirable *newExpirable = (Expirable *)[NSEntityDescription insertNewObjectForEntityForName:@"Expirable" inManagedObjectContext:self.writeContext];
             newExpirable.name = name;
             newExpirable.purchaseDate = date;
         }
-    });
+        
+        // push to parent context
+        [self saveAllContexts];
+    }];
 }
 
 -(void)insertExpirableWithName:(NSString *)name date:(NSDate *)date {
-    dispatch_async(self.saveQueue, ^{
+    [self.writeContext performBlock:^{
         Expirable *newExpirable = (Expirable *)[NSEntityDescription insertNewObjectForEntityForName:@"Expirable" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
         newExpirable.name = name;
         newExpirable.purchaseDate = date;
         NSAssert([name length] > 0, @"Name must be valid!");
-    });
+        
+        [self saveAllContexts];
+    }];
 }
 
 -(void)save {
-    dispatch_async(self.saveQueue, ^{
-        [(AppDelegate *)[UIApplication sharedApplication].delegate saveContext]; //make this better later
-    });
+    NSManagedObjectContext *mainMOC = [CoreDataHelper managedObjectContext];
+    NSError *error;
+    if(![mainMOC save:&error]) {
+        NSLog(@"%@", error);
+    }
+}
+
+// call only inside writeContext performBlock block
+-(void)saveAllContexts {
+    NSManagedObjectContext *mainMOC = [CoreDataHelper managedObjectContext];
+    
+    // push writeContext to main moc
+    NSError *error;
+    if(![self.writeContext save:&error]){
+        NSLog(@"%@", error);
+    }
+    
+    // save parent to disk
+    [mainMOC performBlock:^{
+        NSError *mainMOCError;
+        if(![mainMOC save:&mainMOCError]) {
+            NSLog(@"%@", mainMOCError);
+        }
+    }];
 }
 
 @end
