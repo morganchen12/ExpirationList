@@ -51,9 +51,8 @@
 - (IBAction)saveItem:(id)sender {
     [self toggleBusyStatus:YES];
     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-#pragma message "Careful! CoreData is not thread-safe!"
-        [CoreDataHelper insertExpirableWithName:self.nameTextField.text date:self.datePicker.date];
-        [CoreDataHelper save];
+        [[CoreDataHelper sharedHelper] insertExpirableWithName:self.nameTextField.text date:self.datePicker.date];
+        [[CoreDataHelper sharedHelper] save];
     });
     [self toggleBusyStatus:NO];
     [self.navigationController popViewControllerAnimated:YES];
@@ -64,12 +63,8 @@
     //saves everything in the array using date shown in datePicker
     [self toggleBusyStatus:YES];
     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-#pragma message "Careful! CoreData is not thread-safe!"
-        for(NSString* itemName in array){
-            NSAssert([itemName length] > 0, @"Cannot add empty item to food array");
-            [CoreDataHelper insertExpirableWithName:itemName date:self.datePicker.date];
-        }
-        [CoreDataHelper save];
+        [[CoreDataHelper sharedHelper] insertExpirablesWithNames:array];
+        [[CoreDataHelper sharedHelper] save];
     });
     [self toggleBusyStatus:NO];
 }

@@ -12,11 +12,12 @@
 
 @interface CoreDataHelper : NSObject
 
++(CoreDataHelper *)sharedHelper;
 +(NSManagedObjectContext *)managedObjectContext;
 +(NSArray *)getExpirables;
-+(void)insertExpirableWithName:(NSString *)name date:(NSDate *)date;
-+(void)insertExpirablesWithNames:(NSArray *)names;
-+(void)insertExpirablesWithNames:(NSArray *)names andDate:(NSDate *)date;
-+(void)save;
+-(void)insertExpirableWithName:(NSString *)name date:(NSDate *)date;
+-(void)insertExpirablesWithNames:(NSArray *)names;
+-(void)insertExpirablesWithNames:(NSArray *)names andDate:(NSDate *)date;
+-(void)save;
 
 @end

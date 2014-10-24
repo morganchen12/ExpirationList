@@ -23,13 +23,6 @@
 
 #pragma mark - View Lifecycle
 
-#pragma message "Remove empty method stubs"
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.activityIndicator stopAnimating];
@@ -66,9 +59,8 @@
             NSString *rawOutput = [EXLModel target:self recognizeImageWithTesseract:image];
             NSArray *outputNames = [[EXLModel itemsFromOCROutput:rawOutput] allObjects];
             
-#pragma message "Careful! CoreData is not thread-safe!"
             // save everything using current date
-            [CoreDataHelper insertExpirablesWithNames:outputNames];
+            [[CoreDataHelper sharedHelper] insertExpirablesWithNames:outputNames];
             
 //            GPUImageAdaptiveThresholdFilter *filter = [[GPUImageAdaptiveThresholdFilter alloc] init];
 //            UIImage *binaryImage = [filter imageByFilteringImage:[image normalizeSize]];
