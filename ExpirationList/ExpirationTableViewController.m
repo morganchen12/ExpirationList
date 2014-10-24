@@ -21,6 +21,8 @@
 
 #pragma mark - Initializers
 
+#pragma message "Get rid of empty methods"
+
 -(id)initWithCoder:(NSCoder *)aDecoder {
     if(self = [super initWithCoder:aDecoder]){
         
@@ -84,18 +86,25 @@
 }
 
 #pragma mark - Helper Methods
+#pragma message "Sorting can be done a little simpler, see below"
+//- (void)sortElements {
+//    [self.expirables sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+//        double age1 = [((Expirable *)obj1).purchaseDate timeIntervalSinceNow];
+//        double age2 = [((Expirable *)obj2).purchaseDate timeIntervalSinceNow];
+//        if(age1 < age2){
+//            return NSOrderedAscending;
+//        }
+//        if(age1 > age2){
+//            return NSOrderedDescending;
+//        }
+//        return NSOrderedSame;
+//    }];
+//    [self.tableView reloadData];
+//}
 
 - (void)sortElements {
-    [self.expirables sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        double age1 = [((Expirable *)obj1).purchaseDate timeIntervalSinceNow];
-        double age2 = [((Expirable *)obj2).purchaseDate timeIntervalSinceNow];
-        if(age1 < age2){
-            return NSOrderedAscending;
-        }
-        if(age1 > age2){
-            return NSOrderedDescending;
-        }
-        return NSOrderedSame;
+    [self.expirables sortUsingComparator:^NSComparisonResult(Expirable *obj1, Expirable *obj2) {
+        return [obj1.purchaseDate compare:obj2.purchaseDate];
     }];
     [self.tableView reloadData];
 }

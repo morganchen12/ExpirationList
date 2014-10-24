@@ -23,6 +23,8 @@
 
 #pragma mark - View Lifecycle
 
+#pragma message "Remove empty method stubs"
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -64,6 +66,7 @@
             NSString *rawOutput = [EXLModel target:self recognizeImageWithTesseract:image];
             NSArray *outputNames = [[EXLModel itemsFromOCROutput:rawOutput] allObjects];
             
+#pragma message "Careful! CoreData is not thread-safe!"
             // save everything using current date
             [CoreDataHelper insertExpirablesWithNames:outputNames];
             
