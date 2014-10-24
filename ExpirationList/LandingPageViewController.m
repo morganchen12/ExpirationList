@@ -11,6 +11,7 @@
 #import "UIImage+Filters.h"
 #import "CoreDataHelper.h"
 #import "ImageTestViewController.h"
+#import <GPUImage/GPUImageFramework.h>
 
 @interface LandingPageViewController ()
 
@@ -66,7 +67,8 @@
             // save everything using current date
             [CoreDataHelper insertExpirablesWithNames:outputNames];
             
-//            UIImage *binaryImage = [[image normalizeSize] binaryImageFromAdaptiveThresholdingWithAreaRadius:20 andConstant:2]; //debug
+//            GPUImageAdaptiveThresholdFilter *filter = [[GPUImageAdaptiveThresholdFilter alloc] init];
+//            UIImage *binaryImage = [filter imageByFilteringImage:[image normalizeSize]];
             
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [self.activityIndicator stopAnimating];
@@ -74,6 +76,13 @@
             });
         });
     }];
+}
+
+#pragma mark - TesseractDelegate
+
+-(BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract *)tesseract {
+    NSLog(@"%d", tesseract.progress);
+    return NO;
 }
 
 

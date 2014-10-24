@@ -25,11 +25,12 @@
 		8D401B0019E717DB002B5F79 /* EXLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D401AFF19E717DB002B5F79 /* EXLModel.m */; };
 		8D4E963E19DCAF6F0047B3E3 /* UIImage+Filters.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E963D19DCAF6F0047B3E3 /* UIImage+Filters.m */; };
 		8D569AC919DB466200993C3C /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 8D569AC819DB466200993C3C /* tessdata */; };
-		8D569ACB19DB468700993C3C /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D569ACA19DB468700993C3C /* CoreImage.framework */; };
 		8D603F5019DB417D003F7154 /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D603F4F19DB417D003F7154 /* libstdc++.6.0.9.dylib */; };
 		8DE79C4D19DDCDD60065AD7E /* receipt2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8DE79C4C19DDCDD60065AD7E /* receipt2.jpg */; };
 		8DE79C4F19DDCE800065AD7E /* receipt3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8DE79C4E19DDCE800065AD7E /* receipt3.jpg */; };
 		8DE79C5219DDCFB00065AD7E /* ImageTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE79C5119DDCFB00065AD7E /* ImageTestViewController.m */; };
+		8DF71D4719F8737E0012ED2A /* GPUImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF71D4219F872BD0012ED2A /* GPUImage.framework */; };
+		8DF71D4819F8739A0012ED2A /* GPUImage.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8DF71D4219F872BD0012ED2A /* GPUImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		92FA98D792498562EDB636B6 /* libPods-ExpirationList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF37C9D7539D427A13A52CF1 /* libPods-ExpirationList.a */; };
 /* End PBXBuildFile section */
 
@@ -41,7 +42,41 @@
 			remoteGlobalIDString = 8D2CEF8119D5DB47006E530E;
 			remoteInfo = ExpirationList;
 		};
+		8DF71D3F19F872BD0012ED2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8DF71D3919F872BC0012ED2A /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCF1A33414DDB1EC00852800;
+			remoteInfo = GPUImage;
+		};
+		8DF71D4119F872BD0012ED2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8DF71D3919F872BC0012ED2A /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCE209E51943F20C002FEED8;
+			remoteInfo = GPUImageFramework;
+		};
+		8DF71D4519F873550012ED2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8DF71D3919F872BC0012ED2A /* GPUImage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BCE209E41943F20C002FEED8;
+			remoteInfo = GPUImageFramework;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8DF71D2A19F86FDA0012ED2A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8DF71D4819F8739A0012ED2A /* GPUImage.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3F0044107677CE9F481C1E4F /* Pods-ExpirationList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExpirationList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ExpirationList/Pods-ExpirationList.debug.xcconfig"; sourceTree = "<group>"; };
@@ -83,6 +118,12 @@
 		8DE79C4E19DDCE800065AD7E /* receipt3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = receipt3.jpg; sourceTree = "<group>"; };
 		8DE79C5019DDCFB00065AD7E /* ImageTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageTestViewController.h; sourceTree = "<group>"; };
 		8DE79C5119DDCFB00065AD7E /* ImageTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageTestViewController.m; sourceTree = "<group>"; };
+		8DF71D3919F872BC0012ED2A /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = ../GPUImage/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
+		8DF71D4919F87B0C0012ED2A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		8DF71D4A19F87B0C0012ED2A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		8DF71D4B19F87B0C0012ED2A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		8DF71D4C19F87B0D0012ED2A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		8DF71D4D19F87B0D0012ED2A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AF37C9D7539D427A13A52CF1 /* libPods-ExpirationList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ExpirationList.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -91,7 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D569ACB19DB468700993C3C /* CoreImage.framework in Frameworks */,
+				8DF71D4719F8737E0012ED2A /* GPUImage.framework in Frameworks */,
 				8D603F5019DB417D003F7154 /* libstdc++.6.0.9.dylib in Frameworks */,
 				92FA98D792498562EDB636B6 /* libPods-ExpirationList.a in Frameworks */,
 			);
@@ -190,10 +231,25 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8DF71D3A19F872BC0012ED2A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DF71D4019F872BD0012ED2A /* libGPUImage.a */,
+				8DF71D4219F872BD0012ED2A /* GPUImage.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		B1DFBEC62BB0B846030E4DB1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				8D569ACA19DB468700993C3C /* CoreImage.framework */,
+				8DF71D4919F87B0C0012ED2A /* AVFoundation.framework */,
+				8DF71D4A19F87B0C0012ED2A /* CoreMedia.framework */,
+				8DF71D4B19F87B0C0012ED2A /* CoreVideo.framework */,
+				8DF71D4C19F87B0D0012ED2A /* OpenGLES.framework */,
+				8DF71D4D19F87B0D0012ED2A /* QuartzCore.framework */,
+				8DF71D3919F872BC0012ED2A /* GPUImage.xcodeproj */,
 				8D603F4F19DB417D003F7154 /* libstdc++.6.0.9.dylib */,
 				AF37C9D7539D427A13A52CF1 /* libPods-ExpirationList.a */,
 			);
@@ -221,10 +277,12 @@
 				8D2CEF7F19D5DB47006E530E /* Frameworks */,
 				8D2CEF8019D5DB47006E530E /* Resources */,
 				8E001C2A4F84DDCF6AB13340 /* Copy Pods Resources */,
+				8DF71D2A19F86FDA0012ED2A /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8DF71D4619F873550012ED2A /* PBXTargetDependency */,
 			);
 			name = ExpirationList;
 			productName = ExpirationList;
@@ -278,6 +336,12 @@
 			mainGroup = 8D2CEF7919D5DB47006E530E;
 			productRefGroup = 8D2CEF8319D5DB47006E530E /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8DF71D3A19F872BC0012ED2A /* Products */;
+					ProjectRef = 8DF71D3919F872BC0012ED2A /* GPUImage.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D2CEF8119D5DB47006E530E /* ExpirationList */,
@@ -285,6 +349,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		8DF71D4019F872BD0012ED2A /* libGPUImage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libGPUImage.a;
+			remoteRef = 8DF71D3F19F872BD0012ED2A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8DF71D4219F872BD0012ED2A /* GPUImage.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GPUImage.framework;
+			remoteRef = 8DF71D4119F872BD0012ED2A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D2CEF8019D5DB47006E530E /* Resources */ = {
@@ -379,6 +460,11 @@
 			isa = PBXTargetDependency;
 			target = 8D2CEF8119D5DB47006E530E /* ExpirationList */;
 			targetProxy = 8D2CEF9F19D5DB47006E530E /* PBXContainerItemProxy */;
+		};
+		8DF71D4619F873550012ED2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GPUImageFramework;
+			targetProxy = 8DF71D4519F873550012ED2A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -490,11 +576,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/morganchen/dev/iOS/ios,
+					"$(PROJECT_DIR)",
 				);
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = ExpirationList/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "62186587-f5e9-4bf1-bddc-999732dbb975";
@@ -512,11 +599,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/morganchen/dev/iOS/ios,
+					"$(PROJECT_DIR)",
 				);
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = ExpirationList/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "62186587-f5e9-4bf1-bddc-999732dbb975";

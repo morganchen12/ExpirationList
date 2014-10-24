@@ -173,19 +173,39 @@ typedef enum {
 }
 
 -(UIImage *)normalizeSize {
-    
     //normalize to height of 2000
-    double ratio = 2000 / self.size.height;
-    float resultWidth = roundf(self.size.width * ratio);
-    float resultHeight = roundf(self.size.height * ratio);
-    CGSize resultSize = CGSizeMake(resultWidth, resultHeight);
-    
-    UIGraphicsBeginImageContextWithOptions(resultSize, YES, 0);
-    [self drawInRect:CGRectMake(0, 0, resultSize.width, resultSize.height)];
+    return [UIImage scaleImage:self toResolution:2000];
+}
 
-    NSLog(@"w, h: %f, %f", self.size.width, self.size.height);
++ (UIImage *)scaleImage:(UIImage*)image toResolution:(int)resolution {
+    CGImageRef imgRef = [image CGImage];
+    CGFloat width = CGImageGetWidth(imgRef);
+    CGFloat height = CGImageGetHeight(imgRef);
+    CGRect bounds = CGRectMake(0, 0, width, height);
     
-    return self;
+    //if already at the minimum resolution, return the orginal image, otherwise scale
+    if (width <= resolution && height <= resolution) {
+        return image;
+        
+    } else {
+        CGFloat ratio = width/height;
+        NSLog(@"ratio, w, h: %f, %f, %f", ratio, bounds.size.width, bounds.size.height);
+        
+        if (ratio < 1) {
+            bounds.size.width = resolution;
+            bounds.size.height = width * ratio;
+        } else {
+            bounds.size.height = resolution;
+            bounds.size.width = height / ratio;
+        }
+    }
+    
+    UIGraphicsBeginImageContext(bounds.size);
+    [image drawInRect:CGRectMake(0.0, 0.0, bounds.size.width, bounds.size.height)];
+    UIImage *imageCopy = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return imageCopy;
 }
 
 @end
