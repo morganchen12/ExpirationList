@@ -13,8 +13,7 @@
 
 @interface CoreDataHelper()
 
-@property(nonatomic, readonly) dispatch_queue_t writeQueue;
-@property(nonatomic, readonly) NSManagedObjectContext *writeContext;
+@property(nonatomic, retain, readonly) dispatch_queue_t coreDataQueue;
 
 @end
 
@@ -22,15 +21,11 @@
 
 -(instancetype)init {
     if(self = [super init]) {
-        _writeQueue = dispatch_queue_create("com.expirationList.saveQueue", DISPATCH_QUEUE_SERIAL);
-        _writeContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        _writeContext.parentContext = [CoreDataHelper managedObjectContext];
+        _coreDataQueue = dispatch_queue_create("com.expirationList.coreDataQueue", DISPATCH_QUEUE_SERIAL);
+        _sharedMOC = ((AppDelegate *)([UIApplication sharedApplication].delegate))
+        .managedObjectContext;
     }
     return self;
-}
-
-+(NSManagedObjectContext *)managedObjectContext{
-    return ((AppDelegate *)[UIApplication sharedApplication].delegate).managedObjectContext;
 }
 
 +(CoreDataHelper *)sharedHelper {
@@ -42,16 +37,20 @@
     return helper;
 }
 
-+(NSArray *)getExpirables{
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Expirable" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
-    [request setEntity:entityDescription];
+-(NSArray *)getExpirables{
+    __block NSArray *queryResult;
     
-    NSError *error;
-    NSArray *queryResult = [[CoreDataHelper managedObjectContext] executeFetchRequest:request error:&error];
-    if(error){
-        NSLog(@"%@", [error localizedDescription]);
-    }
+    dispatch_sync(self.coreDataQueue, ^{
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Expirable" inManagedObjectContext:self.sharedMOC];
+        [request setEntity:entityDescription];
+        
+        NSError *error;
+        queryResult = [self.sharedMOC executeFetchRequest:request error:&error];
+        if(error){
+            NSLog(@"%@", [error localizedDescription]);
+        }
+    });
     return queryResult;
 }
 
@@ -59,57 +58,39 @@
     [self insertExpirablesWithNames:names andDate:[NSDate date]];
 }
 
--(void)insertExpirablesWithNames:(NSArray *)namesHelper andDate:(NSDate *)date {
-    [self.writeContext performBlock:^{
-        // insert items into context
-        NSArray *names = [namesHelper copy];
+-(void)insertExpirablesWithNames:(NSArray *)names andDate:(NSDate *)date {
+    dispatch_async(self.coreDataQueue, ^{
         for(NSString *name in names){
-            Expirable *newExpirable = (Expirable *)[NSEntityDescription insertNewObjectForEntityForName:@"Expirable" inManagedObjectContext:self.writeContext];
+            Expirable *newExpirable = (Expirable *)[NSEntityDescription insertNewObjectForEntityForName:@"Expirable" inManagedObjectContext:self.sharedMOC];
             newExpirable.name = name;
             newExpirable.purchaseDate = date;
         }
-        
-        // push to parent context
-        [self saveAllContexts];
-    }];
+    });
 }
 
 -(void)insertExpirableWithName:(NSString *)name date:(NSDate *)date {
-    [self.writeContext performBlock:^{
-        Expirable *newExpirable = (Expirable *)[NSEntityDescription insertNewObjectForEntityForName:@"Expirable" inManagedObjectContext:[CoreDataHelper managedObjectContext]];
+    dispatch_async(self.coreDataQueue, ^{
+        Expirable *newExpirable = (Expirable *)[NSEntityDescription insertNewObjectForEntityForName:@"Expirable" inManagedObjectContext:self.sharedMOC];
         newExpirable.name = name;
         newExpirable.purchaseDate = date;
         NSAssert([name length] > 0, @"Name must be valid!");
-        
-        [self saveAllContexts];
-    }];
+    });
+}
+
+-(void)deleteExpirable:(Expirable *)expirable {
+    dispatch_async(self.coreDataQueue, ^{
+        [[CoreDataHelper sharedHelper].sharedMOC deleteObject:expirable];
+    });
 }
 
 -(void)save {
-    NSManagedObjectContext *mainMOC = [CoreDataHelper managedObjectContext];
-    NSError *error;
-    if(![mainMOC save:&error]) {
-        NSLog(@"%@", error);
-    }
+    dispatch_async(self.coreDataQueue, ^{
+        NSError *error;
+        if(![self.sharedMOC save:&error]) {
+            NSLog(@"%@", error);
+        }
+    });
 }
 
-// call only inside writeContext performBlock block
--(void)saveAllContexts {
-    NSManagedObjectContext *mainMOC = [CoreDataHelper managedObjectContext];
-    
-    // push writeContext to main moc
-    NSError *error;
-    if(![self.writeContext save:&error]){
-        NSLog(@"%@", error);
-    }
-    
-    // save parent to disk
-    [mainMOC performBlock:^{
-        NSError *mainMOCError;
-        if(![mainMOC save:&mainMOCError]) {
-            NSLog(@"%@", mainMOCError);
-        }
-    }];
-}
 
 @end

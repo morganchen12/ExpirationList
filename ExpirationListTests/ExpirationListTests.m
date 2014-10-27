@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "EXLModel.h"
+#import "CoreDataHelper.h"
 #import "UIImage+Filters.h"
 
 @interface ExpirationListTests : XCTestCase
@@ -27,6 +28,11 @@
     [super tearDown];
 }
 
+-(void)testCoreDataSaves {
+    NSArray *testArray = @[@"name1", @"name2", @"name3"];
+    [[CoreDataHelper sharedHelper] insertExpirablesWithNames:testArray];
+    XCTAssert(YES, @"Pass");
+}
 
 - (void)testPerformanceExample {
     // This is an example of a performance test case.

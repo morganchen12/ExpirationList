@@ -74,6 +74,7 @@
 }
 
 #pragma mark - UIImagePickerControllerDelegate
+
 //check if camera available before calling this method
 +(void)openCameraFromViewController:(id<UIImagePickerControllerDelegate, UINavigationControllerDelegate>)viewController {
     UIImagePickerController *imgPicker = [UIImagePickerController new];

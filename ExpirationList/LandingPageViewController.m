@@ -63,7 +63,7 @@
             [[CoreDataHelper sharedHelper] insertExpirablesWithNames:outputNames];
             
 //            GPUImageAdaptiveThresholdFilter *filter = [[GPUImageAdaptiveThresholdFilter alloc] init];
-//            UIImage *binaryImage = [filter imageByFilteringImage:[image normalizeSize]];
+//            UIImage *binaryImage = [filter imageByFilteringImage:image];
             
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [self.activityIndicator stopAnimating];

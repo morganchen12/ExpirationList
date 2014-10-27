@@ -50,26 +50,21 @@
 
 - (IBAction)saveItem:(id)sender {
     [self toggleBusyStatus:YES];
-    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [[CoreDataHelper sharedHelper] insertExpirableWithName:self.nameTextField.text date:self.datePicker.date];
-        [[CoreDataHelper sharedHelper] save];
-    });
+    [[CoreDataHelper sharedHelper] insertExpirableWithName:self.nameTextField.text date:self.datePicker.date];
+//    [[CoreDataHelper sharedHelper] save];
     [self toggleBusyStatus:NO];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)saveItems:(NSArray *)array {
+-(void)saveItems:(NSArray *)names {
     
-    //saves everything in the array using date shown in datePicker
+    // saves everything in the array using date shown in datePicker
     [self toggleBusyStatus:YES];
-    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [[CoreDataHelper sharedHelper] insertExpirablesWithNames:array];
-        [[CoreDataHelper sharedHelper] save];
-    });
+    [[CoreDataHelper sharedHelper] insertExpirablesWithNames:names];
     [self toggleBusyStatus:NO];
 }
 
--(void)toggleBusyStatus:(BOOL)busy { //if starting tasks, busy = YES
+-(void)toggleBusyStatus:(BOOL)busy { // if starting tasks, busy = YES
     if(busy){
         [self.activityIndicator startAnimating];
         self.saveButton.userInteractionEnabled = NO;
