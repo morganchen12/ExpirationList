@@ -16,9 +16,9 @@
 
 +(CoreDataHelper *)sharedHelper;
 -(NSArray *)getExpirables;
--(void)insertExpirableWithName:(NSString *)name date:(NSDate *)date;
--(void)insertExpirablesWithNames:(NSArray *)names;
--(void)insertExpirablesWithNames:(NSArray *)names andDate:(NSDate *)date;
+-(void)insertExpirableWithName:(NSString *)name date:(NSDate *)date completion:(void (^)(void))completion;
+-(void)insertExpirablesWithNames:(NSArray *)names completion:(void (^)(void))completion;
+-(void)insertExpirablesWithNames:(NSArray *)names date:(NSDate *)date completion:(void (^)(void))completion;
 -(void)deleteExpirable:(Expirable *)expirable;
 -(void)save;
 

@@ -54,26 +54,28 @@
     return queryResult;
 }
 
--(void)insertExpirablesWithNames:(NSArray *)names {
-    [self insertExpirablesWithNames:names andDate:[NSDate date]];
+-(void)insertExpirablesWithNames:(NSArray *)names completion:(void (^)(void))completion {
+    [self insertExpirablesWithNames:names date:[NSDate date] completion:completion];
 }
 
--(void)insertExpirablesWithNames:(NSArray *)names andDate:(NSDate *)date {
+-(void)insertExpirablesWithNames:(NSArray *)names date:(NSDate *)date completion:(void (^)(void))completion {
     dispatch_async(self.coreDataQueue, ^{
         for(NSString *name in names){
             Expirable *newExpirable = (Expirable *)[NSEntityDescription insertNewObjectForEntityForName:@"Expirable" inManagedObjectContext:self.sharedMOC];
             newExpirable.name = name;
             newExpirable.purchaseDate = date;
         }
+        dispatch_async(dispatch_get_main_queue(), completion);
     });
 }
 
--(void)insertExpirableWithName:(NSString *)name date:(NSDate *)date {
+-(void)insertExpirableWithName:(NSString *)name date:(NSDate *)date completion:(void (^)(void))completion {
     dispatch_async(self.coreDataQueue, ^{
         Expirable *newExpirable = (Expirable *)[NSEntityDescription insertNewObjectForEntityForName:@"Expirable" inManagedObjectContext:self.sharedMOC];
         newExpirable.name = name;
         newExpirable.purchaseDate = date;
         NSAssert([name length] > 0, @"Name must be valid!");
+        dispatch_async(dispatch_get_main_queue(), completion);
     });
 }
 

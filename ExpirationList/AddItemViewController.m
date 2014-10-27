@@ -50,17 +50,17 @@
 
 - (IBAction)saveItem:(id)sender {
     [self toggleBusyStatus:YES];
-    [[CoreDataHelper sharedHelper] insertExpirableWithName:self.nameTextField.text date:self.datePicker.date];
-//    [[CoreDataHelper sharedHelper] save];
-    [self toggleBusyStatus:NO];
-    [self.navigationController popViewControllerAnimated:YES];
+    [[CoreDataHelper sharedHelper] insertExpirableWithName:self.nameTextField.text date:self.datePicker.date completion:^{
+        [self toggleBusyStatus:NO];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
 -(void)saveItems:(NSArray *)names {
     
     // saves everything in the array using date shown in datePicker
     [self toggleBusyStatus:YES];
-    [[CoreDataHelper sharedHelper] insertExpirablesWithNames:names];
+    [[CoreDataHelper sharedHelper] insertExpirablesWithNames:names completion:nil];
     [self toggleBusyStatus:NO];
 }
 

@@ -29,8 +29,7 @@
 }
 
 -(void)testCoreDataSaves {
-    NSArray *testArray = @[@"name1", @"name2", @"name3"];
-    [[CoreDataHelper sharedHelper] insertExpirablesWithNames:testArray];
+
     XCTAssert(YES, @"Pass");
 }
 

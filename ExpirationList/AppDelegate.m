@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "CoreDataHelper.h"
 
 @interface AppDelegate ()
 
@@ -41,7 +42,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
-    [self saveContext];
+    [[CoreDataHelper sharedHelper] save];
 }
 
 #pragma mark - Core Data stack

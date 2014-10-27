@@ -60,7 +60,7 @@
             NSArray *outputNames = [[EXLModel itemsFromOCROutput:rawOutput] allObjects];
             
             // save everything using current date
-            [[CoreDataHelper sharedHelper] insertExpirablesWithNames:outputNames];
+            [[CoreDataHelper sharedHelper] insertExpirablesWithNames:outputNames completion:nil];
             
 //            GPUImageAdaptiveThresholdFilter *filter = [[GPUImageAdaptiveThresholdFilter alloc] init];
 //            UIImage *binaryImage = [filter imageByFilteringImage:image];
