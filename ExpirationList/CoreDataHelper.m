@@ -65,7 +65,9 @@
             newExpirable.name = name;
             newExpirable.purchaseDate = date;
         }
-        dispatch_async(dispatch_get_main_queue(), completion);
+        if(completion) {
+            dispatch_async(dispatch_get_main_queue(), completion);
+        }
     });
 }
 
@@ -75,7 +77,9 @@
         newExpirable.name = name;
         newExpirable.purchaseDate = date;
         NSAssert([name length] > 0, @"Name must be valid!");
-        dispatch_async(dispatch_get_main_queue(), completion);
+        if(completion) {
+            dispatch_async(dispatch_get_main_queue(), completion);
+        }
     });
 }
 

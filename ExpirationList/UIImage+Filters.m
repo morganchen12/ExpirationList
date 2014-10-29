@@ -174,32 +174,34 @@ typedef enum {
 
 -(UIImage *)normalizeSize {
     //normalize to height of 2000
-    return [UIImage scaleImage:self toResolution:2000];
+    return [UIImage scaleImage:self toResolution:1500];
 }
 
 + (UIImage *)scaleImage:(UIImage*)image toResolution:(int)resolution {
     CGImageRef imgRef = [image CGImage];
-    CGFloat width = CGImageGetWidth(imgRef);
-    CGFloat height = CGImageGetHeight(imgRef);
+    float width, height;
+    if(image.imageOrientation == UIImageOrientationUp ||
+       image.imageOrientation == UIImageOrientationDown ||
+       image.imageOrientation == UIImageOrientationUpMirrored ||
+       image.imageOrientation == UIImageOrientationDownMirrored) {
+        width = CGImageGetWidth(imgRef);
+        height = CGImageGetHeight(imgRef);
+    }
+    else {
+        height = CGImageGetWidth(imgRef);
+        width = CGImageGetHeight(imgRef);
+    }
+    
     CGRect bounds = CGRectMake(0, 0, width, height);
     
     //if already at the minimum resolution, return the orginal image, otherwise scale
-    if (width <= resolution && height <= resolution) {
-        return image;
-        
-    } else {
-        CGFloat ratio = width/height;
-        NSLog(@"ratio, w, h: %f, %f, %f", ratio, bounds.size.width, bounds.size.height);
-        
-        if (ratio < 1) {
-            bounds.size.width = resolution;
-            bounds.size.height = width * ratio;
-        } else {
-            bounds.size.height = resolution;
-            bounds.size.width = height / ratio;
-        }
-    }
     
+    CGFloat ratio = resolution / MAX(width, height);
+    NSLog(@"ratio, w, h: %f, %f, %f", ratio, bounds.size.width, bounds.size.height);
+    
+    bounds.size.width = width*ratio;
+    bounds.size.height = height*ratio;
+
     UIGraphicsBeginImageContext(bounds.size);
     [image drawInRect:CGRectMake(0.0, 0.0, bounds.size.width, bounds.size.height)];
     UIImage *imageCopy = UIGraphicsGetImageFromCurrentImageContext();

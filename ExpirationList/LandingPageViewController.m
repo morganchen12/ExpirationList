@@ -47,7 +47,6 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = info[UIImagePickerControllerOriginalImage];
-    NSLog(@"w, h: %f, %f", image.size.width, image.size.height);
     
     [self dismissViewControllerAnimated:YES completion:^{
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -62,12 +61,8 @@
             // save everything using current date
             [[CoreDataHelper sharedHelper] insertExpirablesWithNames:outputNames completion:nil];
             
-//            GPUImageAdaptiveThresholdFilter *filter = [[GPUImageAdaptiveThresholdFilter alloc] init];
-//            UIImage *binaryImage = [filter imageByFilteringImage:image];
-            
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [self.activityIndicator stopAnimating];
-//                [self performSegueWithIdentifier:@"TestImage" sender:binaryImage]; //debug
             });
         });
     }];
