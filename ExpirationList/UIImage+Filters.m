@@ -203,6 +203,7 @@ typedef enum {
     bounds.size.height = height*ratio;
 
     UIGraphicsBeginImageContext(bounds.size);
+    
     [image drawInRect:CGRectMake(0.0, 0.0, bounds.size.width, bounds.size.height)];
     UIImage *imageCopy = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

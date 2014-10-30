@@ -90,15 +90,14 @@
 +(NSString *)target:(id<TesseractDelegate>)target recognizeImageWithTesseract:(UIImage *)image {
     
     // process image
-//    UIImage *imageToTest = [image binaryImageFromAdaptiveThresholdingWithAreaRadius:15 andConstant:3];
-    GPUImageAdaptiveThresholdFilter *filter = [[GPUImageAdaptiveThresholdFilter alloc] init];
-    UIImage *imageToRead = [filter imageByFilteringImage:image];
+//    GPUImageAdaptiveThresholdFilter *filter = [[GPUImageAdaptiveThresholdFilter alloc] init];
+//    UIImage *imageToRead = [filter imageByFilteringImage:image];
     
     // run OCR on processed image
     Tesseract *tesseract = [[Tesseract alloc] initWithLanguage:@"eng"];
     [tesseract setVariableValue:@"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz." forKey:@"tessedit_char_whitelist"];
     tesseract.delegate = target;
-    [tesseract setImage:imageToRead];
+    [tesseract setImage:[image normalizeSize]];
     [tesseract recognize];
     NSLog(@"%@", tesseract.recognizedText);
     return tesseract.recognizedText;

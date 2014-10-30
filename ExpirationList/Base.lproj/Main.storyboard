@@ -69,19 +69,31 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="YMk-lu-RqU" kind="show" id="5bY-ch-MWU"/>
+                                    <segue destination="YMk-lu-RqU" kind="show" identifier="ShowList" id="5bY-ch-MWU"/>
                                 </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="RZD-oz-etZ">
                                 <rect key="frame" x="290" y="258" width="20" height="20"/>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ed9-DI-AHS">
+                                <rect key="frame" x="241" y="180" width="118" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="TdZ-Cw-ELt"/>
+                                    <constraint firstAttribute="width" constant="118" id="dlt-Qy-64K"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="RZD-oz-etZ" secondAttribute="centerY" id="Jhd-jZ-ppc"/>
                             <constraint firstAttribute="centerX" secondItem="eah-EM-GQd" secondAttribute="centerX" id="Kar-iS-sxe"/>
+                            <constraint firstItem="ed9-DI-AHS" firstAttribute="top" secondItem="eah-EM-GQd" secondAttribute="bottom" constant="49" id="PJi-TD-i2Q"/>
                             <constraint firstItem="1UV-bw-5jd" firstAttribute="top" secondItem="eah-EM-GQd" secondAttribute="bottom" constant="122" id="Xwv-Kt-Jjk"/>
                             <constraint firstAttribute="centerX" secondItem="1UV-bw-5jd" secondAttribute="centerX" id="gew-bp-HUJ"/>
+                            <constraint firstAttribute="centerX" secondItem="ed9-DI-AHS" secondAttribute="centerX" id="mV7-MS-1Rn"/>
                             <constraint firstAttribute="centerX" secondItem="RZD-oz-etZ" secondAttribute="centerX" id="psX-WV-h2F"/>
                             <constraint firstItem="eah-EM-GQd" firstAttribute="top" secondItem="8sF-rB-8oO" secondAttribute="bottom" constant="101" id="rvo-Po-Rl7"/>
                         </constraints>
@@ -90,6 +102,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="activityIndicator" destination="RZD-oz-etZ" id="PWh-5m-JF4"/>
+                        <outlet property="progressLabel" destination="ed9-DI-AHS" id="xYf-zk-lFt"/>
                         <segue destination="vvA-5S-HbK" kind="show" identifier="TestImage" id="1JS-3P-JZA"/>
                     </connections>
                 </viewController>

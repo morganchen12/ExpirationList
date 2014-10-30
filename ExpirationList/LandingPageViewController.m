@@ -16,6 +16,7 @@
 @interface LandingPageViewController ()
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UILabel *progressLabel;
 
 @end
 
@@ -63,6 +64,8 @@
             
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [self.activityIndicator stopAnimating];
+                [self performSegueWithIdentifier:@"ShowList" sender:self];
+                self.progressLabel.text = @"";
             });
         });
     }];
@@ -71,7 +74,10 @@
 #pragma mark - TesseractDelegate
 
 -(BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract *)tesseract {
-    NSLog(@"%d", tesseract.progress);
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.progressLabel.text = [NSString stringWithFormat:@"Progress: %i%%", tesseract.progress];
+    });
     return NO;
 }
 
