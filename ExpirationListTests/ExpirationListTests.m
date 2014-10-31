@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "EXLModel.h"
-#import "CoreDataHelper.h"
-#import "UIImage+Filters.h"
+//#import "EXLModel.h"
+//#import "CoreDataHelper.h"
+//#import "UIImage+Filters.h"
+#import "NSString+Levenshtein.h"
 
 @interface ExpirationListTests : XCTestCase
 
@@ -28,9 +29,16 @@
     [super tearDown];
 }
 
--(void)testCoreDataSaves {
-
-    XCTAssert(YES, @"Pass");
+-(void)testStringMethods {
+    NSString *testString1 = @"kitten";
+    NSString *testString2 = @"sitting";
+    NSString *testString3 = @"mitten";
+    NSString *testString4 = @"Sunday";
+    NSString *testString5 = @"Saturday";
+    
+    XCTAssert([testString1 distanceToWord:testString2] == 3, @"3 edit difference");
+    XCTAssert([testString1 distanceToWord:testString3] == 1, @"1 edit difference");
+    XCTAssert([testString4 distanceToWord:testString5] == 3, @"3 edit difference");
 }
 
 - (void)testPerformanceExample {

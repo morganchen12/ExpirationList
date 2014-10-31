@@ -173,7 +173,7 @@ typedef enum {
 }
 
 -(UIImage *)normalizeSize {
-    //normalize to height of 2000
+    //normalize to height of 1500
     return [UIImage scaleImage:self toResolution:1500];
 }
 

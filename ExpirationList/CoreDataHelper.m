@@ -22,8 +22,7 @@
 -(instancetype)init {
     if(self = [super init]) {
         _coreDataQueue = dispatch_queue_create("com.expirationList.coreDataQueue", DISPATCH_QUEUE_SERIAL);
-        _sharedMOC = ((AppDelegate *)([UIApplication sharedApplication].delegate))
-        .managedObjectContext;
+        _sharedMOC = ((AppDelegate *)([UIApplication sharedApplication].delegate)).managedObjectContext;
     }
     return self;
 }
