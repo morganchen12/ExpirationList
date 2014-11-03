@@ -10,7 +10,9 @@
 
 @interface NSString (Levenshtein)
 
++(int)distanceBetweenString:(NSString *)stringA andString:(NSString *)stringB;
+
 -(int)distanceToWord:(NSString *)word;
--(NSArray *)distanceForWordInSet:(NSSet *)set;
+-(NSString *)closestWordInSet:(NSSet *)set;
 
 @end

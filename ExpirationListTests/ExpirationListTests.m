@@ -36,6 +36,10 @@
     NSString *testString4 = @"Sunday";
     NSString *testString5 = @"Saturday";
     
+    NSLog(@"%d", [testString1 distanceToWord:testString2]);
+    NSLog(@"%d", [testString1 distanceToWord:testString3]);
+    NSLog(@"%d", [testString4 distanceToWord:testString5]);
+    
     XCTAssert([testString1 distanceToWord:testString2] == 3, @"3 edit difference");
     XCTAssert([testString1 distanceToWord:testString3] == 1, @"1 edit difference");
     XCTAssert([testString4 distanceToWord:testString5] == 3, @"3 edit difference");
