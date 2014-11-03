@@ -23,8 +23,8 @@
     
     // create two rows of matrix of edit distances
     int length = (int)stringB.length;
-    int *previousRow = malloc(length * sizeof(int));
-    int *currentRow = malloc(length * sizeof(int));
+    int *previousRow = malloc((length+1) * sizeof(int));
+    int *currentRow = malloc((length+1) * sizeof(int));
     
     
     // initialize previous row as edit distance for empty stringA
@@ -53,8 +53,8 @@
     }
     
     int returnValue = currentRow[length];
-    free(currentRow);
     free(previousRow);
+    free(currentRow);
     
     return returnValue;
 }
