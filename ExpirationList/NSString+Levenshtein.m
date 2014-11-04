@@ -26,7 +26,6 @@
     int *previousRow = malloc((length+1) * sizeof(int));
     int *currentRow = malloc((length+1) * sizeof(int));
     
-    
     // initialize previous row as edit distance for empty stringA
     for(int i = 0; i < [stringB length]; i++) {
         previousRow[i] = i;
