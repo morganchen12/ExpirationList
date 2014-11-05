@@ -23,6 +23,7 @@
 		8D2FDD8619F0670B00EAB629 /* AddItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D2FDD8519F0670B00EAB629 /* AddItemView.xib */; };
 		8D2FDD8919F06BB200EAB629 /* AddItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2FDD8819F06BB200EAB629 /* AddItemView.m */; };
 		8D401B0019E717DB002B5F79 /* EXLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D401AFF19E717DB002B5F79 /* EXLModel.m */; };
+		8D466D1E1A096C2E00B12D43 /* TextCheckerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D466D1D1A096C2E00B12D43 /* TextCheckerHelper.m */; };
 		8D4E963E19DCAF6F0047B3E3 /* UIImage+Filters.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E963D19DCAF6F0047B3E3 /* UIImage+Filters.m */; };
 		8D569AC919DB466200993C3C /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 8D569AC819DB466200993C3C /* tessdata */; };
 		8D603F5019DB417D003F7154 /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D603F4F19DB417D003F7154 /* libstdc++.6.0.9.dylib */; };
@@ -110,6 +111,8 @@
 		8D2FDD8819F06BB200EAB629 /* AddItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddItemView.m; sourceTree = "<group>"; };
 		8D401AFE19E717DB002B5F79 /* EXLModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXLModel.h; sourceTree = "<group>"; };
 		8D401AFF19E717DB002B5F79 /* EXLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXLModel.m; sourceTree = "<group>"; };
+		8D466D1C1A096C2E00B12D43 /* TextCheckerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextCheckerHelper.h; sourceTree = "<group>"; };
+		8D466D1D1A096C2E00B12D43 /* TextCheckerHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextCheckerHelper.m; sourceTree = "<group>"; };
 		8D4E963C19DCAF6F0047B3E3 /* UIImage+Filters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Filters.h"; sourceTree = "<group>"; };
 		8D4E963D19DCAF6F0047B3E3 /* UIImage+Filters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Filters.m"; sourceTree = "<group>"; };
 		8D569AC819DB466200993C3C /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
@@ -211,6 +214,8 @@
 				8D2CEFB519D5FCDE006E530E /* Expirable.m */,
 				8D2CEFB719D60E19006E530E /* CoreDataHelper.h */,
 				8D2CEFB819D60E19006E530E /* CoreDataHelper.m */,
+				8D466D1C1A096C2E00B12D43 /* TextCheckerHelper.h */,
+				8D466D1D1A096C2E00B12D43 /* TextCheckerHelper.m */,
 				8DE0EF1A1A0441FA008A3BD3 /* NSString+Levenshtein.h */,
 				8DE0EF1B1A0441FA008A3BD3 /* NSString+Levenshtein.m */,
 				8D4E963C19DCAF6F0047B3E3 /* UIImage+Filters.h */,
@@ -437,6 +442,7 @@
 			files = (
 				8D2CEFB919D60E19006E530E /* CoreDataHelper.m in Sources */,
 				8D401B0019E717DB002B5F79 /* EXLModel.m in Sources */,
+				8D466D1E1A096C2E00B12D43 /* TextCheckerHelper.m in Sources */,
 				8D4E963E19DCAF6F0047B3E3 /* UIImage+Filters.m in Sources */,
 				8D2FDD8919F06BB200EAB629 /* AddItemView.m in Sources */,
 				8D2CEFB019D5F882006E530E /* ExpirationTableViewController.m in Sources */,

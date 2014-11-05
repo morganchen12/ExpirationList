@@ -11,71 +11,93 @@
 #import "UIImage+Filters.h"
 #import <TesseractOCR/TesseractOCR.h>
 #import <GPUImage/GPUImageFramework.h>
+#import "TextCheckerHelper.h"
 
 @implementation EXLModel
 
 #pragma mark - String Processing
 
 +(NSSet *)itemsFromOCROutput:(NSString *)ocrOutput {
-    //break text into an array of individual lines
-    NSMutableArray *lines = [[ocrOutput componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n"]] mutableCopy];
-    
-    //loop through lines, treating each line as an array of whitespace separated words
-    //first loop removes noise
+    // break text into an array of individual lines
+    NSMutableArray *lines = [[ocrOutput componentsSeparatedByString:@"\n"] mutableCopy];
     
     for(int i = 0; i < [lines count]; i++) {
-        if([self lineIsBeginningOfItemList:lines[i]]){
-            [lines removeObjectsInRange:NSMakeRange(0, i)];
-            break;
+        // delete empty lines
+        if([[lines[i] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
+            [lines removeObjectAtIndex:i];
+            i--;
+            continue;
         }
-    }
-    for(int i = 0; i < [lines count]; i++) {
+        
+        // break lines into array of individual whitespace-separated words
         NSMutableArray *words = [[lines[i] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] mutableCopy];
         
-        for(int j = 0; j < [words count]; j++){
-            //words of length 2 or less are almost never useful, e.g. '20 oz'
-            if([words[j] length] < 3){
-                [words removeObjectAtIndex:j];
-                j--;
-            }
-            
-            //words containing '.' are prices or noise and can be removed
-            else if([words[j] rangeOfString:@"."].location != NSNotFound) {
-                [words removeObjectAtIndex:j];
-                j--;
-            }
-            
-            //words that are all numbers are not useful and can be removed
-            else if([self stringIsProbablyEntirelyNumbers:words[j]]) {
+        // if word length is 2 or less, word is most likely not useful or noise
+        for(int j = 0; j < [words count]; j++) {
+            if([words[j] length] < 3) {
                 [words removeObjectAtIndex:j];
                 j--;
             }
         }
-        //write over line with new line
-        [lines replaceObjectAtIndex:i withObject:[words componentsJoinedByString:@" "]];
         
-        //delete everything below SUBTOTAL, this marks the end of the list of food items
-        if([self stringProbablyDoesContainSubtotal:lines[i]]){
-            [lines removeObjectsInRange:NSMakeRange(i, [lines count]-i)];
-            break;
+        // if line is now empty, delete the line and continue
+        if(![words count]) {
+            [lines removeObjectAtIndex:i];
+            i--;
+            continue;
         }
-        NSLog(@"%@", [words componentsJoinedByString:@" "]);
         
-        //extremely short lines are likely to be noise
-        if([lines[i] length] < 3){
+        // check if the last word of a line is a price
+        NSString *lastWord = words[[words count]-1];
+        if([lastWord rangeOfString:@"."].location == NSNotFound ||
+           ![self stringIsProbablyEntirelyNumbers:lastWord]) {
+            
+            // if not a price, delete the line
             [lines removeObjectAtIndex:i];
             i--;
         }
     }
-#ifdef DEBUG
-//    NSLog(@"%@", [lines componentsJoinedByString:@"\n"]);
-#endif
+    
+    for(int i = 0; i < [lines count]; i++) {
+        // break lines into array of individual whitespace-separated words
+        NSMutableArray *words = [[lines[i] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] mutableCopy];
+        
+        // remove numbers and prices
+        for(int j = 0; j < [words count]; j++) {
+            if([self stringIsProbablyEntirelyNumbers:words[j]] || [words[j] length] < 3) {
+                [words removeObjectAtIndex:j];
+                j--;
+            }
+        }
+        
+        // autocorrect words in line
+        UITextChecker *textChecker = [TextCheckerHelper sharedHelper].textChecker;
+        for(int j = 0; j < [words count]; j++) {
+            if([textChecker rangeOfMisspelledWordInString:words[j]
+                                                    range:NSMakeRange(0, [words[j] length])
+                                               startingAt:0
+                                                     wrap:NO
+                                                 language:@"en-US"].location != NSNotFound) {
+                
+                NSArray *suggestions = [textChecker guessesForWordRange:NSMakeRange(0, [words[j] length])
+                                                               inString:words[j]
+                                                               language:@"en_US"];
+                
+                // only correct word if guess is found
+                if([suggestions count] > 0) {
+                    words[j] = suggestions[0];
+                }
+            }
+        }
+        // overwrite line
+        lines[i] = [[words componentsJoinedByString:@" "] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    }
     return [NSSet setWithArray:lines];
 }
 
 #pragma mark - UIImagePickerControllerDelegate
 
-//check if camera available before calling this method
+// check if camera available before calling this method
 +(void)openCameraFromViewController:(id<UIImagePickerControllerDelegate, UINavigationControllerDelegate>)viewController {
     UIImagePickerController *imgPicker = [UIImagePickerController new];
     imgPicker.delegate = viewController;
