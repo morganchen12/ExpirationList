@@ -91,8 +91,16 @@
                 }
             }
         }
-        // overwrite line
-        lines[i] = [[words componentsJoinedByString:@" "] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        // remove lines if empty, otherwise overwrite line
+        if(![words count]) {
+            [lines removeObjectAtIndex:i];
+            i--;
+            continue;
+        }
+        else {
+            lines[i] = [[words componentsJoinedByString:@" "] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        }
     }
     return [NSSet setWithArray:lines];
 }
