@@ -101,6 +101,20 @@
         else {
             lines[i] = [[words componentsJoinedByString:@" "] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         }
+        
+        // remove non-items
+        if([lines[i] isEqualToString:@"Sub Total"] ||
+           [lines[i] isEqualToString:@"Subtotal"] ||
+           [lines[i] isEqualToString:@"Total"] ||
+           [lines[i] isEqualToString:@"Tax"] ||
+           [lines[i] isEqualToString:@"SUB TOTAL"] ||
+           [lines[i] isEqualToString:@"SUBTOTAL"] ||
+           [lines[i] isEqualToString:@"TOTAL"] ||
+           [lines[i] isEqualToString:@"TAX"]) {
+            [lines removeObjectAtIndex:i];
+            i--;
+            continue;
+        }
     }
     return [NSSet setWithArray:lines];
 }

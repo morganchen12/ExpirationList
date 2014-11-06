@@ -29,12 +29,12 @@
 }
 
 -(void)testStringMethods {
-    NSString *input = @"\n.3QN OCTOBER ZOJZDI4\nCHECK.E261D";
+    NSString *input = @"TOTAL a18.00\n";
     
     NSSet *output = [EXLModel itemsFromOCROutput:input];
     
     for(NSString *item in output) {
-        XCTAssert(![[item stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""], @"Name must be valid!");
+        XCTAssert(![item isEqualToString:@"TOTAL"], @"Name must be valid!");
     }
 }
 

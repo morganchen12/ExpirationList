@@ -61,6 +61,7 @@
             
             // save everything using current date
             [[CoreDataHelper sharedHelper] insertExpirablesWithNames:outputNames completion:nil];
+            [[CoreDataHelper sharedHelper] save];
             
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [self.activityIndicator stopAnimating];
