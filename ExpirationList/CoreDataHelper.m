@@ -60,6 +60,7 @@
 -(void)insertExpirablesWithNames:(NSArray *)names date:(NSDate *)date completion:(void (^)(void))completion {
     dispatch_async(self.coreDataQueue, ^{
         for(NSString *name in names){
+            [self checkStringForValidity:name];
             Expirable *newExpirable = (Expirable *)[NSEntityDescription insertNewObjectForEntityForName:@"Expirable" inManagedObjectContext:self.sharedMOC];
             newExpirable.name = name;
             newExpirable.purchaseDate = date;
@@ -75,7 +76,7 @@
         Expirable *newExpirable = (Expirable *)[NSEntityDescription insertNewObjectForEntityForName:@"Expirable" inManagedObjectContext:self.sharedMOC];
         newExpirable.name = name;
         newExpirable.purchaseDate = date;
-        NSAssert([name length] > 0, @"Name must be valid!");
+        [self checkStringForValidity:name];
         if(completion) {
             dispatch_async(dispatch_get_main_queue(), completion);
         }
@@ -95,6 +96,10 @@
             NSLog(@"%@", error);
         }
     });
+}
+
+-(void)checkStringForValidity:(NSString *)string {
+    NSAssert(![[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""], @"Name must be valid!");
 }
 
 

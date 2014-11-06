@@ -22,6 +22,7 @@
     NSMutableArray *lines = [[ocrOutput componentsSeparatedByString:@"\n"] mutableCopy];
     
     for(int i = 0; i < [lines count]; i++) {
+        
         // delete empty lines
         if([[lines[i] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
             [lines removeObjectAtIndex:i];
@@ -40,13 +41,6 @@
             }
         }
         
-        // if line is now empty, delete the line and continue
-        if(![words count]) {
-            [lines removeObjectAtIndex:i];
-            i--;
-            continue;
-        }
-        
         // check if the last word of a line is a price
         NSString *lastWord = words[[words count]-1];
         if([lastWord rangeOfString:@"."].location == NSNotFound ||
@@ -55,6 +49,14 @@
             // if not a price, delete the line
             [lines removeObjectAtIndex:i];
             i--;
+            continue;
+        }
+        
+        // if line is now empty, delete the line and continue
+        if(![words count]) {
+            [lines removeObjectAtIndex:i];
+            i--;
+            continue;
         }
     }
     

@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-//#import "EXLModel.h"
+#import "EXLModel.h"
 //#import "CoreDataHelper.h"
 //#import "UIImage+Filters.h"
-#import "NSString+Levenshtein.h"
 
 @interface ExpirationListTests : XCTestCase
 
@@ -30,26 +29,13 @@
 }
 
 -(void)testStringMethods {
-    NSString *degenerate = @"";
-    NSString *testString1 = @"kitten";
-    NSString *testString2 = @"sitting";
-    NSString *testString3 = @"mitten";
-    NSString *testString4 = @"Sunday";
-    NSString *testString5 = @"Saturday";
+    NSString *input = @"\n.3QN OCTOBER ZOJZDI4\nCHECK.E261D";
     
-    int test1 = [testString1 distanceToWord:testString2];
-    int test2 = [testString1 distanceToWord:testString3];
-    int test3 = [testString4 distanceToWord:testString5];
-    int test4 = [degenerate distanceToWord:testString1];
-    int test5 = [testString1 distanceToWord:degenerate];
-    int test6 = [testString1 distanceToWord:testString1];
+    NSSet *output = [EXLModel itemsFromOCROutput:input];
     
-    XCTAssert(test1 == 3, @"Expected 3 edit difference, found %d", test1);
-    XCTAssert(test2 == 1, @"Expected 1 edit difference, found %d", test2);
-    XCTAssert(test3 == 3, @"Expected 3 edit difference, found %d", test3);
-    XCTAssert(test4 == 6, @"Expected 6 edit difference, found %d", test4);
-    XCTAssert(test5 == 6, @"Expected 6 edit difference, found %d", test5);
-    XCTAssert(test6 == 0, @"Expected 0 edit difference, found %d", test6);
+    for(NSString *item in output) {
+        XCTAssert(![[item stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""], @"Name must be valid!");
+    }
 }
 
 /*
