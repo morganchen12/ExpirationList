@@ -20,14 +20,11 @@
 		8D2CEFB019D5F882006E530E /* ExpirationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CEFAF19D5F882006E530E /* ExpirationTableViewController.m */; };
 		8D2CEFB619D5FCDE006E530E /* Expirable.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CEFB519D5FCDE006E530E /* Expirable.m */; };
 		8D2CEFB919D60E19006E530E /* CoreDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CEFB819D60E19006E530E /* CoreDataHelper.m */; };
-		8D2FDD8619F0670B00EAB629 /* AddItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D2FDD8519F0670B00EAB629 /* AddItemView.xib */; };
-		8D2FDD8919F06BB200EAB629 /* AddItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2FDD8819F06BB200EAB629 /* AddItemView.m */; };
 		8D401B0019E717DB002B5F79 /* EXLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D401AFF19E717DB002B5F79 /* EXLModel.m */; };
 		8D466D1E1A096C2E00B12D43 /* TextCheckerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D466D1D1A096C2E00B12D43 /* TextCheckerHelper.m */; };
 		8D4E963E19DCAF6F0047B3E3 /* UIImage+Filters.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E963D19DCAF6F0047B3E3 /* UIImage+Filters.m */; };
 		8D569AC919DB466200993C3C /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 8D569AC819DB466200993C3C /* tessdata */; };
 		8D603F5019DB417D003F7154 /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D603F4F19DB417D003F7154 /* libstdc++.6.0.9.dylib */; };
-		8DE0EF1C1A0441FA008A3BD3 /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE0EF1B1A0441FA008A3BD3 /* NSString+Levenshtein.m */; };
 		8DE79C4D19DDCDD60065AD7E /* receipt2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8DE79C4C19DDCDD60065AD7E /* receipt2.jpg */; };
 		8DE79C4F19DDCE800065AD7E /* receipt3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8DE79C4E19DDCE800065AD7E /* receipt3.jpg */; };
 		8DE79C5219DDCFB00065AD7E /* ImageTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE79C5119DDCFB00065AD7E /* ImageTestViewController.m */; };
@@ -106,9 +103,6 @@
 		8D2CEFB519D5FCDE006E530E /* Expirable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Expirable.m; sourceTree = "<group>"; };
 		8D2CEFB719D60E19006E530E /* CoreDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataHelper.h; sourceTree = "<group>"; };
 		8D2CEFB819D60E19006E530E /* CoreDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataHelper.m; sourceTree = "<group>"; };
-		8D2FDD8519F0670B00EAB629 /* AddItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddItemView.xib; sourceTree = "<group>"; };
-		8D2FDD8719F06BB200EAB629 /* AddItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddItemView.h; sourceTree = "<group>"; };
-		8D2FDD8819F06BB200EAB629 /* AddItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddItemView.m; sourceTree = "<group>"; };
 		8D401AFE19E717DB002B5F79 /* EXLModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXLModel.h; sourceTree = "<group>"; };
 		8D401AFF19E717DB002B5F79 /* EXLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXLModel.m; sourceTree = "<group>"; };
 		8D466D1C1A096C2E00B12D43 /* TextCheckerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextCheckerHelper.h; sourceTree = "<group>"; };
@@ -118,8 +112,6 @@
 		8D569AC819DB466200993C3C /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		8D569ACA19DB468700993C3C /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		8D603F4F19DB417D003F7154 /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
-		8DE0EF1A1A0441FA008A3BD3 /* NSString+Levenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Levenshtein.h"; sourceTree = "<group>"; };
-		8DE0EF1B1A0441FA008A3BD3 /* NSString+Levenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Levenshtein.m"; sourceTree = "<group>"; };
 		8DE79C4C19DDCDD60065AD7E /* receipt2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = receipt2.jpg; sourceTree = "<group>"; };
 		8DE79C4E19DDCE800065AD7E /* receipt3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = receipt3.jpg; sourceTree = "<group>"; };
 		8DE79C5019DDCFB00065AD7E /* ImageTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageTestViewController.h; sourceTree = "<group>"; };
@@ -188,9 +180,6 @@
 				8D2CEFAF19D5F882006E530E /* ExpirationTableViewController.m */,
 				8D15D24119F18F7800F4BFCB /* LandingPageViewController.h */,
 				8D15D24219F18F7800F4BFCB /* LandingPageViewController.m */,
-				8D2FDD8719F06BB200EAB629 /* AddItemView.h */,
-				8D2FDD8819F06BB200EAB629 /* AddItemView.m */,
-				8D2FDD8519F0670B00EAB629 /* AddItemView.xib */,
 				8DE79C5019DDCFB00065AD7E /* ImageTestViewController.h */,
 				8DE79C5119DDCFB00065AD7E /* ImageTestViewController.m */,
 				8D2CEF9219D5DB47006E530E /* Main.storyboard */,
@@ -216,8 +205,6 @@
 				8D2CEFB819D60E19006E530E /* CoreDataHelper.m */,
 				8D466D1C1A096C2E00B12D43 /* TextCheckerHelper.h */,
 				8D466D1D1A096C2E00B12D43 /* TextCheckerHelper.m */,
-				8DE0EF1A1A0441FA008A3BD3 /* NSString+Levenshtein.h */,
-				8DE0EF1B1A0441FA008A3BD3 /* NSString+Levenshtein.m */,
 				8D4E963C19DCAF6F0047B3E3 /* UIImage+Filters.h */,
 				8D4E963D19DCAF6F0047B3E3 /* UIImage+Filters.m */,
 			);
@@ -385,7 +372,6 @@
 				8D2CEF9419D5DB47006E530E /* Main.storyboard in Resources */,
 				8D569AC919DB466200993C3C /* tessdata in Resources */,
 				8DE79C4F19DDCE800065AD7E /* receipt3.jpg in Resources */,
-				8D2FDD8619F0670B00EAB629 /* AddItemView.xib in Resources */,
 				8D2CEF9919D5DB47006E530E /* LaunchScreen.xib in Resources */,
 				8DE79C4D19DDCDD60065AD7E /* receipt2.jpg in Resources */,
 				8D2CEF9619D5DB47006E530E /* Images.xcassets in Resources */,
@@ -444,10 +430,8 @@
 				8D401B0019E717DB002B5F79 /* EXLModel.m in Sources */,
 				8D466D1E1A096C2E00B12D43 /* TextCheckerHelper.m in Sources */,
 				8D4E963E19DCAF6F0047B3E3 /* UIImage+Filters.m in Sources */,
-				8D2FDD8919F06BB200EAB629 /* AddItemView.m in Sources */,
 				8D2CEFB019D5F882006E530E /* ExpirationTableViewController.m in Sources */,
 				8D16B76319D875C600E58B06 /* AddItemViewController.m in Sources */,
-				8DE0EF1C1A0441FA008A3BD3 /* NSString+Levenshtein.m in Sources */,
 				8D2CEF8E19D5DB47006E530E /* ExpirationList.xcdatamodeld in Sources */,
 				8D15D24319F18F7800F4BFCB /* LandingPageViewController.m in Sources */,
 				8D2CEF8B19D5DB47006E530E /* AppDelegate.m in Sources */,

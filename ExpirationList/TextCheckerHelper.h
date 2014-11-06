@@ -14,6 +14,9 @@
 
 @property (nonatomic, readonly) UITextChecker *textChecker;
 
+/* Return a singleton instance of this class containing a UITextChecker instance.
+ * Eventually this text checker will be specially configured.
+ */
 +(TextCheckerHelper *)sharedHelper;
 
 @end
