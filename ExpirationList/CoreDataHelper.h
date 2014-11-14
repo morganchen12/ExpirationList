@@ -51,4 +51,9 @@
  */
 -(void)save;
 
+
+/* Save synchronously or asynchronously based on parameter.
+ */
+-(void)saveSync:(BOOL)sync;
+
 @end

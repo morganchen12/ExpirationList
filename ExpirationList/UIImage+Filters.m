@@ -194,8 +194,6 @@ typedef enum {
     
     CGRect bounds = CGRectMake(0, 0, width, height);
     
-    //if already at the minimum resolution, return the orginal image, otherwise scale
-    
     CGFloat ratio = resolution / MAX(width, height);
     NSLog(@"ratio, w, h: %f, %f, %f", ratio, bounds.size.width, bounds.size.height);
     

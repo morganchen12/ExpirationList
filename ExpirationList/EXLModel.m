@@ -42,14 +42,16 @@
         }
         
         // check if the last word of a line is a price
-        NSString *lastWord = words[[words count]-1];
-        if([lastWord rangeOfString:@"."].location == NSNotFound ||
-           ![self stringIsProbablyEntirelyNumbers:lastWord]) {
-            
-            // if not a price, delete the line
-            [lines removeObjectAtIndex:i];
-            i--;
-            continue;
+        if([words count] > 0) {
+            NSString *lastWord = words[[words count]-1];
+            if([lastWord rangeOfString:@"."].location == NSNotFound ||
+               ![self stringIsProbablyEntirelyNumbers:lastWord]) {
+                
+                // if not a price, delete the line
+                [lines removeObjectAtIndex:i];
+                i--;
+                continue;
+            }
         }
         
         // if line is now empty, delete the line and continue
@@ -89,6 +91,10 @@
                 if([suggestions count] > 0) {
                     words[j] = suggestions[0];
                 }
+                else {
+                    [words removeObjectAtIndex:j];
+                    j--;
+                }
             }
         }
         
@@ -103,14 +109,10 @@
         }
         
         // remove non-items
-        if([lines[i] isEqualToString:@"Sub Total"] ||
-           [lines[i] isEqualToString:@"Subtotal"] ||
-           [lines[i] isEqualToString:@"Total"] ||
-           [lines[i] isEqualToString:@"Tax"] ||
-           [lines[i] isEqualToString:@"SUB TOTAL"] ||
-           [lines[i] isEqualToString:@"SUBTOTAL"] ||
-           [lines[i] isEqualToString:@"TOTAL"] ||
-           [lines[i] isEqualToString:@"TAX"]) {
+        if([[lines[i] uppercaseString] isEqualToString:@"SUB TOTAL"] ||
+           [[lines[i] uppercaseString] isEqualToString:@"SUBTOTAL"] ||
+           [[lines[i] uppercaseString] isEqualToString:@"TOTAL"] ||
+           [[lines[i] uppercaseString] isEqualToString:@"TAX"]) {
             [lines removeObjectAtIndex:i];
             i--;
             continue;

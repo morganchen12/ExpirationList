@@ -69,6 +69,7 @@
             dispatch_async(dispatch_get_main_queue(), completion);
         }
     });
+    [self save];
 }
 
 -(void)insertExpirableWithName:(NSString *)name date:(NSDate *)date completion:(void (^)(void))completion {
@@ -81,25 +82,41 @@
             dispatch_async(dispatch_get_main_queue(), completion);
         }
     });
+    [self save];
 }
 
 -(void)deleteExpirable:(Expirable *)expirable {
     dispatch_async(self.coreDataQueue, ^{
         [[CoreDataHelper sharedHelper].sharedMOC deleteObject:expirable];
     });
+    [self save];
 }
 
 -(void)save {
-    dispatch_async(self.coreDataQueue, ^{
-        NSError *error;
-        if(![self.sharedMOC save:&error]) {
-            NSLog(@"%@", error);
-        }
-    });
+    [self saveSync:NO];
+}
+
+-(void)saveSync:(BOOL)sync {
+    if(sync) {
+        dispatch_sync(self.coreDataQueue, ^{
+            NSError *error;
+            if(![self.sharedMOC save:&error]) {
+                NSLog(@"%@", error);
+            }
+        });
+    }
+    else {
+        dispatch_async(self.coreDataQueue, ^{
+            NSError *error;
+            if(![self.sharedMOC save:&error]) {
+                NSLog(@"%@", error);
+            }
+        });
+    }
 }
 
 -(void)checkStringForValidity:(NSString *)string {
-    NSAssert(![[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""], @"Name must be valid!");
+    NSAssert(![[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""], @"Name must not be whitespace!");
 }
 
 

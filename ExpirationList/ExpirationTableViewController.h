@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <TesseractOCR/TesseractOCR.h>
 
-@interface ExpirationTableViewController : UITableViewController
+@interface ExpirationTableViewController : UITableViewController <UIImagePickerControllerDelegate, TesseractDelegate, UINavigationControllerDelegate>
 
 @end
