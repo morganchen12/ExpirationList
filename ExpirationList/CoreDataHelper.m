@@ -65,11 +65,11 @@
             newExpirable.name = name;
             newExpirable.purchaseDate = date;
         }
+        [self save];
         if(completion) {
             dispatch_async(dispatch_get_main_queue(), completion);
         }
     });
-    [self save];
 }
 
 -(void)insertExpirableWithName:(NSString *)name date:(NSDate *)date completion:(void (^)(void))completion {
@@ -78,18 +78,18 @@
         newExpirable.name = name;
         newExpirable.purchaseDate = date;
         [self checkStringForValidity:name];
+        [self save];
         if(completion) {
             dispatch_async(dispatch_get_main_queue(), completion);
         }
     });
-    [self save];
 }
 
 -(void)deleteExpirable:(Expirable *)expirable {
     dispatch_async(self.coreDataQueue, ^{
         [[CoreDataHelper sharedHelper].sharedMOC deleteObject:expirable];
+        [self save];
     });
-    [self save];
 }
 
 -(void)save {

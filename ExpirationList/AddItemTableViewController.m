@@ -53,8 +53,6 @@ static AddItemTableViewController *sharedController = nil;
     return self;
 }
 
-
-
 - (id)awakeAfterUsingCoder:(NSCoder *)aDecoder {
 
     static dispatch_once_t once = 0L;
@@ -62,7 +60,6 @@ static AddItemTableViewController *sharedController = nil;
         sharedController = self;
     });
     
-    // clear state?
     return sharedController;
 }
 
@@ -70,6 +67,7 @@ static AddItemTableViewController *sharedController = nil;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.allowsSelection = NO;
     self.datePicker.datePickerMode = UIDatePickerModeDate;
 }
 
@@ -77,6 +75,8 @@ static AddItemTableViewController *sharedController = nil;
     [super viewWillAppear:animated];
     [_items removeAllObjects];
     [_items addObject:@""];
+    self.datePicker.maximumDate = [NSDate date];
+    self.datePicker.date = [NSDate date];
     [self.tableView reloadData];
 }
 
@@ -124,11 +124,24 @@ static AddItemTableViewController *sharedController = nil;
 
 #pragma mark - UITextFieldDelegate
 
+-(void)textFieldDidBeginEditing:(UITextField *)textField {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(textFieldDidChange:)
+                                                 name:@"UITextFieldTextDidChangeNotification"
+                                               object:textField];
+}
+
 -(void)textFieldDidEndEditing:(UITextField *)textField {
-    AddItemTableViewCell *cell = ((AddItemTextField *)textField).cell;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(void)textFieldDidChange:(NSNotification *)notification {
+    AddItemTextField *textField = notification.object;
+    AddItemTableViewCell *cell = textField.cell;
+    
     long index = [self.tableView indexPathForCell:cell].row;
     BOOL needsReload = NO;
-
+    
     @synchronized(self) {
         _items[index] = textField.text;
         if(index >= [self.items count]-1 && ![self.items[index] isEqualToString:@""]) {
@@ -140,6 +153,7 @@ static AddItemTableViewController *sharedController = nil;
     if (needsReload) {
         [self.tableView reloadData];
     }
+
 }
 
 #pragma mark - Storyboard / CoreData
@@ -167,22 +181,11 @@ static AddItemTableViewController *sharedController = nil;
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    return YES;
+    return NO;
 }
 
 -(BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract *)tesseract {
     return NO;
 }
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    if([segue.identifier isEqualToString:@"TestImage"]){
-//        ImageTestViewController *destination = (ImageTestViewController *)[segue destinationViewController];
-//        destination.testImage = [[UIImage imageNamed:@"receipt3.jpg"] binaryImageFromAdaptiveThresholdingWithAreaRadius:12 andConstant:6];
-//    }
-}
-
 
 @end

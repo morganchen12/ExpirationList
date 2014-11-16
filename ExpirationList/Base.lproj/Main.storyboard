@@ -5,11 +5,11 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Expiration Table View Controller-->
+        <!--Food List-->
         <scene sceneID="sbo-cw-80o">
             <objects>
                 <tableViewController id="YMk-lu-RqU" customClass="ExpirationTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="jVu-Hn-Sie">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="22" sectionFooterHeight="22" id="jVu-Hn-Sie">
                         <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -40,7 +40,8 @@
                             <outlet property="delegate" destination="YMk-lu-RqU" id="yJc-1U-y1O"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="QXT-vC-hhp">
+                    <navigationItem key="navigationItem" title="Food List" id="QXT-vC-hhp">
+                        <barButtonItem key="backBarButtonItem" title="Cancel" id="8oe-ML-u4U"/>
                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="3XX-Wb-xaX">
                             <connections>
                                 <segue destination="uuF-KS-tHD" kind="show" identifier="ShowAddItemViewController" id="mhK-1k-wiQ"/>
@@ -61,12 +62,12 @@
             </objects>
             <point key="canvasLocation" x="1660" y="371"/>
         </scene>
-        <!--Add Item Table View Controller-->
+        <!--Add New-->
         <scene sceneID="NAx-oo-EEQ">
             <objects>
                 <tableViewController id="uuF-KS-tHD" customClass="AddItemTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="GUZ-5k-k9N">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="41X-Iq-V3o">
@@ -119,7 +120,8 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="9nJ-g9-kIq">
+                    <navigationItem key="navigationItem" title="Add New" id="9nJ-g9-kIq">
+                        <barButtonItem key="backBarButtonItem" title="Cancel" id="DZF-no-gBy"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="hrI-d9-4az">
                             <connections>
                                 <action selector="saveItems:" destination="uuF-KS-tHD" id="6Cv-07-82t"/>
@@ -149,6 +151,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="eq1-5u-Rey">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.87030460858585856" green="0.42217711115650425" blue="0.17306179056224297" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -163,4 +166,5 @@
     <inferredMetricsTieBreakers>
         <segue reference="bSX-Mh-gbA"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>

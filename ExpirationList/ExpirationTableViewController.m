@@ -16,7 +16,10 @@
 @interface ExpirationTableViewController ()
 
 @property (strong, nonatomic) NSMutableArray *expirables;
+@property (strong, nonatomic) NSMutableDictionary *expirablesByDate;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cameraButton;
+@property (strong, nonatomic, readonly) NSArray *keys;
+@property (strong, nonatomic, readwrite) NSMutableArray *keySubset;
 
 @end
 
@@ -26,142 +29,80 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:nil action:nil];
+    _keys = @[@"Today", @"Yesterday", @"Past week", @"Past 2 weeks", @"Past month", @"Past 6 months", @"Older"];
+    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     if([self.expirables count]==0){
-        
+        // first-time user experience
     }
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.keySubset = [self.keys mutableCopy];
     self.expirables = [[[CoreDataHelper sharedHelper] getExpirables] mutableCopy];
+    self.expirablesByDate = [self dictionaryForArrayOfItems];
+    [self sanitize];
     [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source / UITableViewDataSource
 
--(NSDictionary *)dictionaryForArrayOfItems {
-    [self sortElements];
-    NSArray *keys = @[@"Today", @"Yesterday", @"1 week ago", @"2 weeks ago", @"1 month ago", @"6 months ago", @"Older"];
-    NSMutableArray *objects = [[NSMutableArray alloc] initWithCapacity:[keys count]];
-
-    int valueIndex = 0;
-    int lastIndex = -1;
-    for(int keyIndex = 0; keyIndex < [keys count]; keyIndex++) {
-        NSDate *purchaseDate = [self.expirables[valueIndex] purchaseDate];
-        int days = [self daysSinceDate:purchaseDate];
+-(NSMutableDictionary *)dictionaryForArrayOfItems {
+    NSMutableArray *values = [[NSMutableArray alloc] initWithCapacity:[self.keys count]];
+    for(int i = 0; i < [self.keys count]; i++) {
+        values[i] = [[NSMutableArray alloc] init];
+    }
+    
+    for(Expirable *item in self.expirables) {
+        int daysOld = [self daysSinceDate:item.purchaseDate];
         
-        switch (keyIndex) {
-            case 0: {
-                // Today
-                
-                while(valueIndex < [self.expirables count]) {
-                    if(!(days == 0)) {
-                        NSRange range = NSMakeRange(lastIndex+1, (valueIndex+1) - lastIndex);
-                        lastIndex = valueIndex;
-                        [objects addObject:[self.expirables subarrayWithRange:range]];
-                        break;
-                    }
-                    valueIndex++;
-                }
-                break;
-            }
-            case 1: {
-                // Yesterday
-                
-                while(valueIndex < [self.expirables count]) {
-                    if(!(days == 1)) {
-                        NSRange range = NSMakeRange(lastIndex+1, (valueIndex+1) - lastIndex);
-                        lastIndex = valueIndex;
-                        [objects addObject:[self.expirables subarrayWithRange:range]];
-                        break;
-                    }
-                    valueIndex++;
-                }
-            }
-            case 2: {
-                // 1 week ago
-                
-                while(valueIndex < [self.expirables count]) {
-                    if(!(days > 1 && days < 7)) {
-                        NSRange range = NSMakeRange(lastIndex+1, (valueIndex+1) - lastIndex);
-                        lastIndex = valueIndex;
-                        [objects addObject:[self.expirables subarrayWithRange:range]];
-                        break;
-                    }
-                    valueIndex++;
-                }
-            }
-            case 3: {
-                // 2 weeks ago
-                
-                while(valueIndex < [self.expirables count]) {
-                    if(!(days > 7 && days <= 14)) {
-                        NSRange range = NSMakeRange(lastIndex+1, (valueIndex+1) - lastIndex);
-                        lastIndex = valueIndex;
-                        [objects addObject:[self.expirables subarrayWithRange:range]];
-                        break;
-                    }
-                    valueIndex++;
-                }
-            }
-            case 4: {
-                // 1 month ago
-                
-                while(valueIndex < [self.expirables count]) {
-                    if(!(days > 14 && days <= 30)) {
-                        NSRange range = NSMakeRange(lastIndex+1, (valueIndex+1) - lastIndex);
-                        lastIndex = valueIndex;
-                        [objects addObject:[self.expirables subarrayWithRange:range]];
-                        break;
-                    }
-                    valueIndex++;
-                }
-            }
-            case 5: {
-                // 6 months ago
-                
-                while(valueIndex < [self.expirables count]) {
-                    if(!(days > 30 && days <= 182)) {
-                        NSRange range = NSMakeRange(lastIndex+1, (valueIndex+1) - lastIndex);
-                        lastIndex = valueIndex;
-                        [objects addObject:[self.expirables subarrayWithRange:range]];
-                        break;
-                    }
-                    valueIndex++;
-                }
-            }
-            default: {
-                // older than 6 months
-                
-                while(valueIndex < [self.expirables count]) {
-                    if(!(days > 182)) {
-                        NSRange range = NSMakeRange(lastIndex+1, (valueIndex+1) - lastIndex);
-                        lastIndex = valueIndex;
-                        [objects addObject:[self.expirables subarrayWithRange:range]];
-                        break;
-                    }
-                    valueIndex++;
-                }
-            }
+        if(daysOld == 0) {
+            [values[0] addObject:item];
+        }
+        else if(daysOld == 1) {
+            [values[1] addObject:item];
+        }
+        else if(daysOld <= 7) {
+            [values[2] addObject:item];
+        }
+        else if(daysOld <= 14) {
+            [values[3] addObject:item];
+        }
+        else if(daysOld <= 30) {
+            [values[4] addObject:item];
+        }
+        else if(daysOld <= 182) {
+            [values[5] addObject:item];
+        }
+        else {
+            [values[6] addObject:item];
         }
     }
-    return [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
+    return [[NSMutableDictionary alloc] initWithObjects:values forKeys:self.keys];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.expirables count];
+    return [self.expirablesByDate[self.keySubset[section]] count];
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return self.keySubset[section];
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [self.keySubset count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ExpirableCell" forIndexPath:indexPath];
-    NSString *name = [self.expirables[indexPath.row] name];
+    Expirable *item = [self.expirablesByDate[self.keySubset[[indexPath section]]] objectAtIndex:[indexPath row]];
+    NSString *name = item.name;
     cell.textLabel.text = name;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    NSDate *purchaseDate = [self.expirables[indexPath.row] purchaseDate];
+    NSDate *purchaseDate = item.purchaseDate;
     int days = [self daysSinceDate:purchaseDate];
     NSString *subTextString = [NSString stringWithFormat:@"  %d days old - Added %@", days, [dateFormatter stringFromDate:purchaseDate]];
     
@@ -172,8 +113,16 @@
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if(editingStyle == UITableViewCellEditingStyleDelete){
         [[CoreDataHelper sharedHelper] deleteExpirable:self.expirables[indexPath.row]];
-        [self.expirables removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        NSString *key = self.keySubset[[indexPath section]];
+        [self.expirables removeObject:self.expirablesByDate[key][[indexPath row]]];
+        self.expirablesByDate = [self dictionaryForArrayOfItems];
+        [self sanitize];
+        if([[self.expirablesByDate objectForKey:key] count]) {
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }
+        else {
+            [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+        }
     }
 }
 
@@ -209,6 +158,17 @@
 -(int)daysSinceDate:(NSDate *)date {
     double timeSinceNow = [date timeIntervalSinceNow]*-1;
     return (timeSinceNow / 86400);
+}
+
+-(void)sanitize {
+    for(int i = 0; i < [self.keySubset count]; i++) {
+        NSString *key = self.keySubset[i];
+        if([self.expirablesByDate[key] count] == 0) {
+            [self.keySubset removeObjectAtIndex:i];
+            [self.expirablesByDate removeObjectForKey:key];
+            i--;
+        }
+    }
 }
 
 /*
