@@ -115,6 +115,9 @@ static AddItemTableViewController *sharedController = nil;
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if(editingStyle == UITableViewCellEditingStyleDelete) {
+        if([indexPath row] == [self.items count]-1) {
+            return;
+        }
         @synchronized(self) {
             [_items removeObjectAtIndex:indexPath.row];
         }
@@ -140,20 +143,13 @@ static AddItemTableViewController *sharedController = nil;
     AddItemTableViewCell *cell = textField.cell;
     
     long index = [self.tableView indexPathForCell:cell].row;
-    BOOL needsReload = NO;
     
     @synchronized(self) {
         _items[index] = textField.text;
         if(index >= [self.items count]-1 && ![self.items[index] isEqualToString:@""]) {
             [_items addObject:@""];
-            needsReload = YES;
         }
     }
-    
-    if (needsReload) {
-        [self.tableView reloadData];
-    }
-
 }
 
 #pragma mark - Storyboard / CoreData

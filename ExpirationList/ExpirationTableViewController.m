@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _keys = @[@"Today", @"Yesterday", @"Past week", @"Past 2 weeks", @"Past month", @"Past 6 months", @"Older"];
-    self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     if([self.expirables count]==0){
         // first-time user experience
     }
