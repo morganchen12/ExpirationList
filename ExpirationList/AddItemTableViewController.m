@@ -94,6 +94,7 @@ static AddItemTableViewController *sharedController = nil;
         NSSet *output = [EXLModel itemsFromOCROutput:raw];
         @synchronized(self) {
             [_items setArray:[output allObjects]];
+            [_items addObject:@""];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
