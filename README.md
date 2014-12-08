@@ -17,3 +17,4 @@ Goals:
 - Never have user take picture, instead grab frames from viewfinder in image picker controller
 - Automatically escape when complete
 - Add field for expected expiration date
+- Write more tests
