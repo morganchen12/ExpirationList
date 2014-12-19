@@ -40,7 +40,9 @@
     [super viewWillAppear:animated];
     self.keySubset = [self.keys mutableCopy];
     self.expirables = [[[CoreDataHelper sharedHelper] getExpirables] mutableCopy];
-    self.expirablesByDate = [self dictionaryForArrayOfItems];
+    if(self.expirables.count) {
+        self.expirablesByDate = [self dictionaryForArrayOfItems];
+    }
     [self sanitize];
     [self.tableView reloadData];
 }
@@ -166,7 +168,7 @@
         if([self.expirablesByDate[key] count] == 0) {
             [self.keySubset removeObjectAtIndex:i];
             [self.expirablesByDate removeObjectForKey:key];
-            i--;
+            break;
         }
     }
 }

@@ -86,23 +86,6 @@ static AddItemTableViewController *sharedController = nil;
 
 #pragma mark - Table view data source / UITableViewDataSource
 
--(void)processImage:(UIImage *)image {
-    [SVProgressHUD showWithStatus:@"Reading Image..." maskType:SVProgressHUDMaskTypeBlack];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString *raw = [EXLModel target:self recognizeImageWithTesseract:image];
-        NSSet *output = [EXLModel itemsFromOCROutput:raw];
-        @synchronized(self) {
-            [_items setArray:[output allObjects]];
-            [_items addObject:@""];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-            [SVProgressHUD dismiss];
-        });
-    });
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.items count];
 }
@@ -147,10 +130,16 @@ static AddItemTableViewController *sharedController = nil;
     
     @synchronized(self) {
         _items[index] = textField.text;
-        if(index >= [self.items count]-1 && ![self.items[index] isEqualToString:@""]) {
+        if(index >= [self.items count]-1) {
             [_items addObject:@""];
         }
     }
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    [self.tableView reloadData];
+    return NO;
 }
 
 #pragma mark - Storyboard / CoreData
@@ -174,15 +163,27 @@ static AddItemTableViewController *sharedController = nil;
     }];
 }
 
-#pragma mark - UITextFieldDelegate
-
--(BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    return NO;
-}
+#pragma mark - TesseractDelegate
 
 -(BOOL)shouldCancelImageRecognitionForTesseract:(Tesseract *)tesseract {
     return NO;
+}
+
+-(void)processImage:(UIImage *)image {
+    [SVProgressHUD showWithStatus:@"Reading Image..." maskType:SVProgressHUDMaskTypeBlack];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *raw = [EXLModel target:self recognizeImageWithTesseract:image];
+        NSSet *output = [EXLModel itemsFromOCROutput:raw];
+        @synchronized(self) {
+            [_items setArray:[output allObjects]];
+            [_items addObject:@""];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            [SVProgressHUD dismiss];
+        });
+    });
 }
 
 @end
